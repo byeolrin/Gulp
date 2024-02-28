@@ -10,7 +10,6 @@ class Business(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     business_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(12), nullable=False)
     address = db.Column(db.String(50), nullable=False)
     city = db.Column(db.String(25), nullable=False)
@@ -25,7 +24,8 @@ class Business(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    owner = db.relationship("User", back_populates="businesses")
+    owner = db.relationship("User", back_populates='businesses')
+    reviews = db.relationship('Reviews', back_populates='business')
 
     def to_dict(self):
         return {
