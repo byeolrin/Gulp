@@ -1,23 +1,23 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 
 function BusinessForm() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    // const dispatch = useDispatch()
+    // const navigate = useNavigate()
 
     const [businessName, setBusinessName] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [zipCode, setZipCode] = useState('')
-    const [description, setDescription] = useState('')
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
-    const [priceRange, setPriceRange] = useState()
-    const [businessURL, setBusinessURL] = useState('')
-    const [businessImage, setBusinessImage] = useState('')
+    // const [phoneNumber, setPhoneNumber] = useState('')
+    // const [address, setAddress] = useState('')
+    // const [city, setCity] = useState('')
+    // const [state, setState] = useState('')
+    // const [zipCode, setZipCode] = useState('')
+    // const [description, setDescription] = useState('')
+    // const [latitude, setLatitude] = useState('')
+    // const [longitude, setLongitude] = useState('')
+    // const [priceRange, setPriceRange] = useState()
+    // const [businessURL, setBusinessURL] = useState('')
+    // const [businessImage, setBusinessImage] = useState('')
 
 
     return (
@@ -30,7 +30,9 @@ function BusinessForm() {
                         type='text'
                         placeholder='Business name'
                         value={businessName}
-                        // onChange={updateBusinessName}
+                        onChange={(e) => {
+                            setBusinessName(e.target.value)
+                        }}
                         required />
                 </div>
             </form>
