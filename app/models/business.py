@@ -16,23 +16,22 @@ class Business(db.Model):
     state = db.Column(db.String(20), nullable=False)
     zipcode = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(2500), nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     price_range = db.Column(db.Integer, nullable=False)
     business_url = db.Column(db.String, nullable=False)
-    business_image = db.Column(db.String(255))
+    business_image = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     owner = db.relationship("User", back_populates='businesses')
-    reviews = db.relationship('Reviews', back_populates='business')
+    reviews = db.relationship('Review', back_populates='business')
 
     def to_dict(self):
         return {
             'id': self.id,
             'owner_id': self.owner_id,
             'business_name': self.business_name,
-            'email': self.email,
             'phone': self.phone,
             'address': self.address,
             'city': self.city,
