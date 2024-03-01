@@ -12,24 +12,25 @@ business_routes = Blueprint('businesses', __name__)
 def get_businesses():
     businesses = Business.query.all()
     response = [business.to_dict() for business in businesses]
-    return { 'businesses': response }
+    return jsonify({ 'businesses': response })
 
 @business_routes.route('/user/<int:userId>')
 @login_required
 def get_businesses_from_current_user(userId):
     businesses = Business.query.filter(Business.owner_id == userId).all()
     response = [business.to_dict() for business in businesses]
-    return { 'businesses': response }
+    return jsonify({ 'businesses': response })
 
-@business_routes.route('/<int:id>')
-def get_business_details(id):
-    business = Business.query.get(id)
-    response = business.to_dict()
+@business_routes.route('/<int:businessId>')
+def get_business_details(businessId):
+    business = Business.query.get(businessId)
 
     if not business:
-        return {'message': 'Business could not be found.', 'statusCode': 404}
+        return jsonify({ 'error': 'Business could not be found.' }), 404
     
-    return { 'business': response }
+    response = business.to_dict()
+    
+    return jsonify({ 'business': response })
 
 @business_routes.route('/new', methods=['POST'])
 @login_required
@@ -49,7 +50,7 @@ def create_new_business():
 
         if "url" not in upload:
  
-            return { "message": "Failed to upload file" }
+            return jsonify({ "message": "Failed to upload file" })
         
         # print('IMAGE UPLOADED')
         
@@ -72,5 +73,39 @@ def create_new_business():
         db.session.add(new_business)
         db.session.commit()
         return new_business.to_dict(), 201
-    print(form.errors)
+    # print(form.errors)
     return form.errors, 400
+
+@business_routes.route('/<int:businessId>', methods=['PUT'])
+@login_required
+def edit_business(businessId):
+    business = Business.query.get(businessId)
+    
+    if not business:
+        return jsonify({ 'error': "Business couldn't be found" }), 404
+    
+    if business.owner_id != current_user.id:
+        return jsonify({ 'error': 'Forbidden' }), 401
+    
+    form = BusinessForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    form.populate_obj(business)
+    db.session.commit()
+    return business.to_dict(), 200
+
+@business_routes.route('/<int:businessId>', methods=['DELETE'])
+@login_required
+def delete_business(businessId):
+    business = Business.query.get(businessId)
+
+    if not business:
+        return jsonify({ 'error': "Business couldn't be found" }), 404
+    
+    if business.owner_id != current_user.id:
+        return jsonify({ 'error': 'Forbidden '}), 401
+    
+    db.session.delete(business)
+    db.session.commit()
+
+    return jsonify({ 'message': 'Business has been deleted successfully.' }), 200

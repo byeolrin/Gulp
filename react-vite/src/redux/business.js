@@ -1,6 +1,8 @@
 const LOAD_ALL = 'businesses/LOAD_ALL';
 const LOAD_ONE = 'businesses/LOAD_ONE';
-const CREATE_BUSINESS = 'businesses/CREATE';
+const CREATE_BUSINESS = 'businesses/CREATE_BUSINESS';
+const EDIT_BUSINESS = 'businesses/EDIT_BUSINESS';
+const REMOVE_BUSINESS = 'businesses/REMOVE_BUSINESS';
 
 const loadAll = (businesses) => ({
     type: LOAD_ALL,
@@ -15,6 +17,16 @@ const loadOne = (business) => ({
 const createBusiness = (business) => ({
     type: CREATE_BUSINESS,
     business
+})
+
+const editBusiness = (business) => ({
+    type: EDIT_BUSINESS,
+    business
+})
+
+const removeBusiness = (businessId) => ({
+    type: REMOVE_BUSINESS,
+    businessId
 })
 
 export const thunkGetAllBusinesses = () => async (dispatch) => {
@@ -44,7 +56,7 @@ export const thunkGetOneBusiness = (businessId) => async (dispatch) => {
 }
 
 export const thunkCreateBusiness = (business) => async (dispatch) => {
-    console.log('THIS IS INSIDE THE THUNK', business)
+    // console.log('THIS IS INSIDE THE THUNK', business)
     const response = await fetch ('/api/businesses/new', {
         method: 'POST',
         // headers: { 'Content-Type': 'application/json' },
@@ -57,6 +69,32 @@ export const thunkCreateBusiness = (business) => async (dispatch) => {
     } else {
         const error = await response.json();
         return error
+    }
+}
+
+export const thunkEditBusiness = (business) => async (dispatch) => {
+    const response = await fetch (`/api/businesses/${business.id}`, {
+        method: 'PUT',
+        body: business
+    })
+
+    if (response.ok) {
+        const business = await response.json();
+        dispatch(editBusiness(business));
+        return business
+    } else {
+        const error = await response.json();
+        return error
+    }
+}
+
+export const thunkRemoveBusiness = (businessId) => async (dispatch) => {
+    const response = await fetch (`/api/businesses/${businessId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(removeBusiness(businessId))
     }
 }
 
@@ -85,6 +123,22 @@ const businessReducer = (state = initialState, action) => {
                     [action.business.id]: action.business
                 }
             }
+        case EDIT_BUSINESS:
+            return {
+                ...state,
+                allBusinesses: {
+                    ...state.allBusinesses,
+                    [action.business.id]: action.business
+                }
+            }
+        case REMOVE_BUSINESS: {
+            const newAllBusinesses = { ...state.allBusinesses }
+            delete newAllBusinesses[action.businessId]
+            return {
+                ...state,
+                allBusinesses: newAllBusinesses
+            }
+        }
         default:
             return state
     }
