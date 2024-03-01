@@ -3,6 +3,7 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import BusinessForm from '../components/BusinessForm';
+import BusinessDetails from '../components/BusinessDetails';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: '/business/new',
         element: <BusinessForm />
+      },
+      {
+        path: '/business/:businessId',
+        element: <BusinessDetails />
       }
     ],
   },

@@ -44,10 +44,11 @@ export const thunkGetOneBusiness = (businessId) => async (dispatch) => {
 }
 
 export const thunkCreateBusiness = (business) => async (dispatch) => {
+    console.log('THIS IS INSIDE THE THUNK', business)
     const response = await fetch ('/api/businesses/new', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(business)
+        // headers: { 'Content-Type': 'application/json' },
+        body: business
     })
     if (response.ok) {
         const newBusiness = await response.json();

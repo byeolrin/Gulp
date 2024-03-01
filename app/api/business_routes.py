@@ -37,9 +37,13 @@ def create_new_business():
     form = BusinessForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    print(form.data)
+
     if form.validate_on_submit():
 
-        image = form.data['business_image']
+        print('FORM VALIDATED')
+
+        image = form.business_image.data
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
 
@@ -47,10 +51,12 @@ def create_new_business():
  
             return { "message": "Failed to upload file" }
         
+        print('IMAGE UPLOADED')
+        
         new_business = Business(
             owner_id = current_user.id,
             business_name = form.data['business_name'],
-            phone = form.data['phone'],
+            phone = form.data['phone'], 
             address = form.data['address'],
             city = form.data['city'],
             state = form.data['state'],
@@ -66,3 +72,5 @@ def create_new_business():
         db.session.add(new_business)
         db.session.commit()
         return new_business.to_dict(), 201
+    print(form.errors)
+    return form.errors, 400
