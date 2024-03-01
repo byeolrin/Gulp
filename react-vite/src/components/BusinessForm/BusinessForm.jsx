@@ -21,11 +21,11 @@ function BusinessForm() {
     const [businessURL, setBusinessURL] = useState('')
     const [businessImage, setBusinessImage] = useState('')
     const [formErrors, setFormErrors] = useState({});
-    const [showErrors, setShowErrors] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
         const errors = {};
-        if (!businessName) errors.businessName = 'Business Name is required'
+        if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
         if (!phoneNumber) errors.phoneNumber = 'Please provide a valid phone number'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
@@ -43,17 +43,18 @@ function BusinessForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowErrors(true);
+        setSubmitted(true);
 
-        console.log('INSIDE THE SUBMIT FUNCTION', formErrors)
+        // console.log('INSIDE THE SUBMIT FUNCTION', formErrors)
+
+        const cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
+        const formattedPhoneNumber = cleanedPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 
         if (!Object.values(formErrors).length) {
             const formData = new FormData();
 
-            console.log('inside appending form')
-
             formData.append('business_name', businessName)
-            formData.append('phone', phoneNumber)
+            formData.append('phone', formattedPhoneNumber)
             formData.append('address', address)
             formData.append('city', city)
             formData.append('state', state)
@@ -70,14 +71,11 @@ function BusinessForm() {
                 console.log(pair[0] + ', ' + pair[1])
             }
 
-            console.log('THIS IS FORMDATA AFTER APPENDING', formData)
-
             dispatch(thunkCreateBusiness(formData)).then((result) => {
                 navigate(`/business/${result.id}`)
             })
         }
     }
-
 
     return (
         <div className="business-form-container">
@@ -86,6 +84,9 @@ function BusinessForm() {
                 encType="multipart/form-data">
                 <div>
                     <label>
+                        {submitted && formErrors.businessName && (
+                            <div className="form-error">{formErrors.businessName}</div>
+                        )}
                         Name
                         <input
                             className='create-business-input'
@@ -97,12 +98,11 @@ function BusinessForm() {
                             }}
                             required />
                     </label>
-                    {showErrors && errors.businessName && (
-                        <div className="song-form-error">{errors.businessName}</div>
-                    )}
                 </div>
                 <div>
-                    <label>
+                    <label>{submitted && formErrors.phoneNumber && (
+                            <div className="form-error">{formErrors.phoneNumber}</div>
+                        )}
                         Phone Number
                         <input
                             className='create-business-input'
@@ -159,6 +159,9 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>
+                    {submitted && formErrors.zipcode && (
+                            <div className="form-error">{formErrors.zipcode}</div>
+                        )}
                         ZIP Code
                         <input
                             className='create-business-input'

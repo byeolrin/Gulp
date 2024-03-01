@@ -12,7 +12,7 @@ business_routes = Blueprint('businesses', __name__)
 def get_businesses():
     businesses = Business.query.all()
     response = [business.to_dict() for business in businesses]
-    return { 'business': response }
+    return { 'businesses': response }
 
 @business_routes.route('/user/<int:userId>')
 @login_required
@@ -41,7 +41,7 @@ def create_new_business():
 
     if form.validate_on_submit():
 
-        print('FORM VALIDATED')
+        # print('FORM VALIDATED')
 
         image = form.business_image.data
         image.filename = get_unique_filename(image.filename)
@@ -51,7 +51,7 @@ def create_new_business():
  
             return { "message": "Failed to upload file" }
         
-        print('IMAGE UPLOADED')
+        # print('IMAGE UPLOADED')
         
         new_business = Business(
             owner_id = current_user.id,
