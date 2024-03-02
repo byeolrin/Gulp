@@ -73,15 +73,16 @@ export const thunkCreateBusiness = (business) => async (dispatch) => {
 }
 
 export const thunkEditBusiness = (business) => async (dispatch) => {
+    console.log('THIS IS THE BUSINESS UNDER EDIT BUSINESS THUNK', business)
     const response = await fetch (`/api/businesses/${business.id}`, {
         method: 'PUT',
         body: business
     })
 
     if (response.ok) {
-        const business = await response.json();
-        dispatch(editBusiness(business));
-        return business
+        const updatedBusiness = await response.json();
+        dispatch(editBusiness(updatedBusiness));
+        return updatedBusiness
     } else {
         const error = await response.json();
         return error

@@ -3,32 +3,49 @@ import { useEffect, useState } from "react";
 import { thunkEditBusiness, thunkGetOneBusiness } from "../../redux/business";
 import { useNavigate, useParams } from "react-router-dom";
 
-function EditBusiness({business}) {
+function EditBusiness() {
     const { businessId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const business = useSelector(state => state.businesses.oneBusiness.business)
+    const business = useSelector(state => state.businesses.oneBusiness.business)
 
     console.log('THIS IS THE EDIT BUSINESS FORM', business)
 
-    const [businessName, setBusinessName] = useState(business?.business_name)
-    const [phoneNumber, setPhoneNumber] = useState(business?.phone)
-    const [address, setAddress] = useState(business?.address)
-    const [city, setCity] = useState(business?.city)
-    const [state, setState] = useState(business?.state)
-    const [zipcode, setZipcode] = useState(business?.zipcode)
-    const [description, setDescription] = useState(business?.description)
-    const [latitude, setLatitude] = useState(business?.latitude)
-    const [longitude, setLongitude] = useState(business?.longitude)
-    const [priceRange, setPriceRange] = useState(business?.price_range)
-    const [businessURL, setBusinessURL] = useState(business?.business_url)
-    const [businessImage, setBusinessImage] = useState(business?.business_image)
+    const [businessName, setBusinessName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [description, setDescription] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [priceRange, setPriceRange] = useState('');
+    const [businessURL, setBusinessURL] = useState('');
+    const [businessImage, setBusinessImage] = useState('');
     const [formErrors, setFormErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
         dispatch(thunkGetOneBusiness(businessId));
     }, [dispatch, businessId])
+
+    useEffect(() => {
+        if (business) {
+            setBusinessName(business.business_name);
+            setPhoneNumber(business.phone);
+            setAddress(business.address);
+            setCity(business.city);
+            setState(business.state);
+            setZipcode(business.zipcode);
+            setDescription(business.description);
+            setLatitude(parseFloat(business.latitude).toFixed(4));
+            setLongitude(parseFloat(business.longitude).toFixed(4));
+            setPriceRange(business.price_range);
+            setBusinessURL(business.business_url);
+            setBusinessImage(business.business_image);
+        }
+    }, [business]);
 
     useEffect(() => {
         const errors = {};
