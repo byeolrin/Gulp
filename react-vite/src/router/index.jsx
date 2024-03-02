@@ -4,6 +4,8 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import BusinessForm from '../components/BusinessForm';
 import BusinessDetails from '../components/BusinessDetails';
+// import EditBusiness from '../components/EditBusiness';
+import TestingEditBusiness from '../components/EditBusiness/testingEditBusiness';
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: '/business/:businessId',
         element: <BusinessDetails />
+      },
+      {
+        path: '/business/:businessId/edit',
+        element: <TestingEditBusiness />
       }
     ],
   },
