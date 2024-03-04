@@ -3,7 +3,7 @@ const LOAD_ONE = 'businesses/LOAD_ONE';
 const CREATE_BUSINESS = 'businesses/CREATE_BUSINESS';
 const EDIT_BUSINESS = 'businesses/EDIT_BUSINESS';
 const REMOVE_BUSINESS = 'businesses/REMOVE_BUSINESS';
-const USER_BUSINESSES = 'businesses/USER_BUSINESSES';
+// const USER_BUSINESSES = 'businesses/USER_BUSINESSES';
 
 const loadAll = (businesses) => ({
     type: LOAD_ALL,
