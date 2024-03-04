@@ -3,6 +3,7 @@ const LOAD_ONE = 'businesses/LOAD_ONE';
 const CREATE_BUSINESS = 'businesses/CREATE_BUSINESS';
 const EDIT_BUSINESS = 'businesses/EDIT_BUSINESS';
 const REMOVE_BUSINESS = 'businesses/REMOVE_BUSINESS';
+const USER_BUSINESSES = 'businesses/USER_BUSINESSES';
 
 const loadAll = (businesses) => ({
     type: LOAD_ALL,
@@ -27,6 +28,11 @@ const editBusiness = (business) => ({
 const removeBusiness = (businessId) => ({
     type: REMOVE_BUSINESS,
     businessId
+})
+
+const userBusinesses = (businesses) => ({
+    type: LOAD_ALL,
+    businesses
 })
 
 export const thunkGetAllBusinesses = () => async (dispatch) => {
@@ -72,13 +78,13 @@ export const thunkCreateBusiness = (business) => async (dispatch) => {
     }
 }
 
-export const thunkEditBusiness = (business) => async (dispatch) => {
-    console.log('THIS IS THE BUSINESS UNDER EDIT BUSINESS THUNK', business)
-    const response = await fetch (`/api/businesses/${business.id}`, {
+export const thunkEditBusiness = (business, businessId) => async (dispatch) => {
+    // console.log('THIS IS THE BUSINESS UNDER EDIT BUSINESS THUNK', businessId)
+    const response = await fetch (`/api/businesses/${businessId}`, {
         method: 'PUT',
         body: business
     })
-
+    // console.log('THIS IS THE RESPONSE IN EDIT BUSINESS THUNK', response)
     if (response.ok) {
         const updatedBusiness = await response.json();
         dispatch(editBusiness(updatedBusiness));
@@ -96,6 +102,19 @@ export const thunkRemoveBusiness = (businessId) => async (dispatch) => {
 
     if (response.ok) {
         dispatch(removeBusiness(businessId))
+    }
+}
+
+export const thunkUserBusinesses = (userId) => async (dispatch) => {
+    const response = await fetch (`/api/businesses/user/${userId}`)
+
+    if (response.ok) {
+        const currentUserBusinesses = await response.json();
+        dispatch(userBusinesses(currentUserBusinesses));
+        return currentUserBusinesses;
+    } else {
+        const error = await response.json();
+        return error
     }
 }
 

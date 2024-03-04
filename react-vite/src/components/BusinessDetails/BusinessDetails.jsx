@@ -9,7 +9,7 @@ function BusinessDetails() {
 
     const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business);
     
-    // console.log('THIS IS THE CURRENT BUSINESS', currentBusiness)
+    console.log('THIS IS THE CURRENT BUSINESS', currentBusiness)
     
     useEffect(() => {
         dispatch(thunkGetOneBusiness(businessId));
@@ -19,6 +19,7 @@ function BusinessDetails() {
         <div>
             <h2>{currentBusiness?.business_name}</h2>
             <p>{currentBusiness?.description}</p>
+            <img src={currentBusiness?.business_image} />
         </div>
     )
     

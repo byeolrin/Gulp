@@ -5,6 +5,7 @@ import Layout from './Layout';
 import BusinessForm from '../components/BusinessForm';
 import BusinessDetails from '../components/BusinessDetails';
 import EditBusiness from '../components/EditBusiness';
+import UserBusinesses from '../components/UserBusinesses';
 // import TestingEditBusiness from '../components/EditBusiness/testingEditBusiness';
 
 export const router = createBrowserRouter([
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: '/business/:businessId/edit',
         element: <EditBusiness />
+      },
+      {
+        path: 'businesses/manage',
+        element: <UserBusinesses />
       }
     ],
   },

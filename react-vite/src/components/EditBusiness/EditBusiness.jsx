@@ -7,9 +7,14 @@ function EditBusiness() {
     const { businessId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const business = useSelector(state => state.businesses.oneBusiness.business)
+    const business = useSelector(state => state.businesses.oneBusiness.business);
+    const user = useSelector(state => state.session.user);
 
-    console.log('THIS IS THE EDIT BUSINESS FORM', business)
+    console.log('THIS IS THE EDIT BUSINESS FORM', business, user)
+
+    if (user.id !== business?.owner_id) {
+        navigate(`/business/${businessId}`)
+    }
 
     const [businessName, setBusinessName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -95,7 +100,7 @@ function EditBusiness() {
                 console.log(pair[0] + ', ' + pair[1])
             }
 
-            dispatch(thunkEditBusiness(formData)).then((result) => {
+            dispatch(thunkEditBusiness(formData, businessId)).then((result) => {
                 navigate(`/business/${result.id}`)
             })
         }
@@ -125,8 +130,8 @@ function EditBusiness() {
                 </div>
                 <div>
                     <label>{submitted && formErrors.phoneNumber && (
-                            <div className="form-error">{formErrors.phoneNumber}</div>
-                        )}
+                        <div className="form-error">{formErrors.phoneNumber}</div>
+                    )}
                         Phone Number
                         <input
                             className='create-business-input'
@@ -183,7 +188,7 @@ function EditBusiness() {
                 </div>
                 <div>
                     <label>
-                    {submitted && formErrors.zipcode && (
+                        {submitted && formErrors.zipcode && (
                             <div className="form-error">{formErrors.zipcode}</div>
                         )}
                         ZIP Code
@@ -286,7 +291,6 @@ function EditBusiness() {
                                 value="4"
                                 checked={priceRange === "4"}
                                 onChange={(e) => setPriceRange(e.target.value)}
-                                required
                             />
                         </label>
                     </div>
@@ -315,8 +319,8 @@ function EditBusiness() {
                             accept="image/*"
                             onChange={(e) => {
                                 setBusinessImage(e.target.files[0])
-                            }}
-                            required />
+                            }
+                            } />
                     </label>
                 </div>
                 <button type="submit">

@@ -28,5 +28,5 @@ class BusinessForm(FlaskForm):
     longitude = FloatField('Longitude', validators=[DataRequired(), validate_longitude])
     price_range = IntegerField('Price Range', validators=[DataRequired(), NumberRange(min=1, max=4)])
     business_url = StringField('URL', validators=[DataRequired()])
-    business_image = FileField('Image File', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    business_image = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     submit = SubmitField('Create New Business')
