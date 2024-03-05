@@ -55,7 +55,7 @@ function EditBusiness() {
     useEffect(() => {
         const errors = {};
         if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
-        if (!phoneNumber) errors.phoneNumber = 'Please provide a valid phone number'
+        if (!phoneNumber || phoneNumber.length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
         if (!state) errors.state = 'State is required';

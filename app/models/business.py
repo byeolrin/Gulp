@@ -42,5 +42,6 @@ class Business(db.Model):
             'latitude': self.latitude,
             'price_range': self.price_range,
             'business_url': self.business_url,
-            'business_image': self.business_image
+            'business_image': self.business_image,
+            'reviews': [review.to_dict() for review in self.reviews]
         }

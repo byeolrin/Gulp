@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import './BusinessForm.css';
 import { thunkCreateBusiness } from "../../redux/business";
+import './BusinessForm.css';
 
 function BusinessForm() {
     const dispatch = useDispatch()
@@ -26,14 +26,14 @@ function BusinessForm() {
     useEffect(() => {
         const errors = {};
         if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
-        if (!phoneNumber) errors.phoneNumber = 'Please provide a valid phone number'
+        if (!phoneNumber || phoneNumber.length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
         if (!state) errors.state = 'State is required';
         if (!zipcode) errors.zipcode = 'ZIP Code is required';
         if (!description) errors.description = 'Description is required';
-        if (!latitude) errors.latitude = 'Latitude is required';
-        if (!longitude) errors.longitude = 'Longitude is required';
+        if (!latitude || latitude > 90 || latitude < -90) errors.latitude = 'Latitude must be between -90 and 90';
+        if (!longitude || longitude > 180 || longitude < -180) errors.longitude = 'Longitude must be between -180 and 180';
         if (!priceRange) errors.priceRange = 'Price Range is required';
         if (!businessURL) errors.businessURL = 'Business URL is required';
         if (!businessImage) errors.businessImage = 'Business Image is required';
