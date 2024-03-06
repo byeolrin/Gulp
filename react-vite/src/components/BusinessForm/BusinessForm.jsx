@@ -26,11 +26,11 @@ function BusinessForm() {
     useEffect(() => {
         const errors = {};
         if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
-        if (!phoneNumber || phoneNumber.length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
+        if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
         if (!state) errors.state = 'State is required';
-        if (!zipcode) errors.zipcode = 'ZIP Code is required';
+        if (!zipcode || String(zipcode).length !== 5) errors.zipcode = 'Please provide a valid Zipcode';
         if (!description) errors.description = 'Description is required';
         if (!latitude || latitude > 90 || latitude < -90) errors.latitude = 'Latitude must be between -90 and 90';
         if (!longitude || longitude > 180 || longitude < -180) errors.longitude = 'Longitude must be between -180 and 180';
@@ -106,7 +106,7 @@ function BusinessForm() {
                         Phone Number
                         <input
                             className='create-business-input'
-                            type='text'
+                            type='number'
                             placeholder='xxx-xxx-xxxx'
                             value={phoneNumber}
                             onChange={(e) => {
@@ -190,6 +190,9 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>
+                    {submitted && formErrors.latitude && (
+                            <div className="form-error">{formErrors.latitude}</div>
+                        )}
                         Latitude
                         <input
                             className='create-business-input'
@@ -204,6 +207,9 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>
+                    {submitted && formErrors.longitude && (
+                            <div className="form-error">{formErrors.longitude}</div>
+                        )}
                         Longitude
                         <input
                             className='create-business-input'

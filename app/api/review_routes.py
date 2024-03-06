@@ -23,7 +23,7 @@ def get_review_details(reviewId):
 
     return jsonify({ 'review': response })
 
-@review_routes.route('new', methods=['POST'])
+@review_routes.route('/new', methods=['POST'])
 @login_required
 def create_new_review():
     form = ReviewForm()
@@ -58,4 +58,21 @@ def edit_review(reviewId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        pass
+        review.review = form.review.data
+        review.rating = form.rating.data
+
+@review_routes.route('/int:reviewId>', methods=['DELETE'])
+@login_required
+def delete_review(reviewId):
+    review = Review.query.get(reviewId)
+
+    if not review:
+        return jsonify({ 'error': "Reviews couldn't be found" }), 404
+    
+    if review.user_id != current_user.id:
+        return jsonify({ 'error': 'Forbidden'}), 401
+    
+    db.session.delete(review)
+    db.session.commit()
+
+    return jsonify({ 'message': 'Review has been deleted successfully'}), 200

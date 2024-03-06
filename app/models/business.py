@@ -43,5 +43,7 @@ class Business(db.Model):
             'price_range': self.price_range,
             'business_url': self.business_url,
             'business_image': self.business_image,
-            'reviews': [review.to_dict() for review in self.reviews]
+            'reviews': [review.to_dict() for review in self.reviews],
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }

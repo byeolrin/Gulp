@@ -8,8 +8,9 @@ function BusinessDetails() {
     const dispatch = useDispatch();
 
     const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business);
+    const user = useSelector((state) => state.session.user);
     
-    console.log('THIS IS THE CURRENT BUSINESS', currentBusiness)
+    console.log('THIS IS THE CURRENT BUSINESS', currentBusiness, user)
     
     useEffect(() => {
         dispatch(thunkGetOneBusiness(businessId));

@@ -13,27 +13,27 @@ const loadAll = (businesses) => ({
 const loadOne = (business) => ({
     type: LOAD_ONE,
     business
-})
+});
 
 const createBusiness = (business) => ({
     type: CREATE_BUSINESS,
     business
-})
+});
 
 const editBusiness = (business) => ({
     type: EDIT_BUSINESS,
     business
-})
+});
 
 const removeBusiness = (businessId) => ({
     type: REMOVE_BUSINESS,
     businessId
-})
+});
 
 const userBusinesses = (businesses) => ({
     type: LOAD_ALL,
     businesses
-})
+});
 
 export const thunkGetAllBusinesses = () => async (dispatch) => {
     const response = await fetch ('/api/businesses')

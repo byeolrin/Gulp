@@ -12,10 +12,6 @@ function EditBusiness() {
 
     console.log('THIS IS THE EDIT BUSINESS FORM', business, user)
 
-    if (user.id !== business?.owner_id) {
-        navigate(`/business/${businessId}`)
-    }
-
     const [businessName, setBusinessName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
@@ -37,8 +33,9 @@ function EditBusiness() {
 
     useEffect(() => {
         if (business) {
+            const initialNumber = business.phone.replace(/\D/g, '')
             setBusinessName(business.business_name);
-            setPhoneNumber(business.phone);
+            setPhoneNumber(initialNumber);
             setAddress(business.address);
             setCity(business.city);
             setState(business.state);
@@ -55,14 +52,14 @@ function EditBusiness() {
     useEffect(() => {
         const errors = {};
         if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
-        if (!phoneNumber || phoneNumber.length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
+        if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
         if (!state) errors.state = 'State is required';
-        if (!zipcode) errors.zipcode = 'ZIP Code is required';
+        if (!zipcode || String(zipcode).length !== 5) errors.zipcode = 'Please provide a valid Zipcode';
         if (!description) errors.description = 'Description is required';
-        if (!latitude) errors.latitude = 'Latitude is required';
-        if (!longitude) errors.longitude = 'Longitude is required';
+        if (!latitude || latitude > 90 || latitude < -90) errors.latitude = 'Latitude must be between -90 and 90';
+        if (!longitude || longitude > 180 || longitude < -180) errors.longitude = 'Longitude must be between -180 and 180';
         if (!priceRange) errors.priceRange = 'Price Range is required';
         if (!businessURL) errors.businessURL = 'Business URL is required';
         if (!businessImage) errors.businessImage = 'Business Image is required';
@@ -105,6 +102,14 @@ function EditBusiness() {
             })
         }
     }
+
+    if (!user) {
+        navigate('/login')
+    }
+    
+    // if (user.id != business?.owner_id) {
+    //     navigate(`/business/${businessId}`)
+    // }
 
     return (
         <div className="business-form-container">
