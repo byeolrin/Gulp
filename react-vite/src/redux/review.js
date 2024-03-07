@@ -56,6 +56,16 @@ export const thunkCreateReview = (review) => async (dispatch) => {
     }
 }
 
+export const thunkRemoveReview = (reviewId) => async (dispatch) => {
+    const response = await fetch (`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(removeReview(reviewId))
+    }
+}
+
 const initialState = {}
 
 const reviewReducer = (state = initialState, action) => {
@@ -66,11 +76,19 @@ const reviewReducer = (state = initialState, action) => {
                 allReviews: action.reviews
             }
         case CREATE_REVIEW: 
-            console.log('HELLOOOOsdfasdfasdfasfafasdfafs-----', action)
             return {
                 ...state,
                 [action.review.id]: action.review
             }
+        case REMOVE_REVIEW: {
+            const newAllReviews = { ...state }
+            delete newAllReviews[action.reviewId]
+            return {
+                ...state,
+                allReviews: newAllReviews
+            }
+        }
+
             default:
                 return state
     }
