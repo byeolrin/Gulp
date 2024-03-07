@@ -23,10 +23,10 @@ const removeReview = (reviewId) => ({
     reviewId
 })
 
-const userReviews = (reviews) => ({
-    type: LOAD_ALL,
-    reviews
-})
+// const userReviews = (reviews) => ({
+//     type: LOAD_ALL,
+//     reviews
+// })
 
 export const thunkGetAllReviews = () => async (dispatch) => {
     const response = await fetch('/api/reviews')
