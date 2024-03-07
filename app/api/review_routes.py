@@ -61,6 +61,11 @@ def edit_review(reviewId):
         review.review = form.review.data
         review.rating = form.rating.data
 
+        db.session.commit()
+        return review.to_dict(), 200
+    print(form.errors)
+    return form.errors, 400
+
 @review_routes.route('/<int:reviewId>', methods=['DELETE'])
 @login_required
 def delete_review(reviewId):

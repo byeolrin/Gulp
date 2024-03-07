@@ -1,17 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { thunkGetOneBusiness } from "../../redux/business";
-import ReviewDetails from "../ReviewDetails/ReviewDetails";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import ReviewForm from "../ReviewForm/ReviewForm";
-import DeleteReviewModal from "./DeleteReviewModal";
+import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 import './BusinessDetails.css';
+import EditReview from "../EditReview/EditReview";
 
 function BusinessDetails() {
     const { businessId } = useParams();
     const dispatch = useDispatch();
-    const navigate = useNavigate()
 
     const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business);
     const user = useSelector((state) => state.session.user);
@@ -40,11 +39,17 @@ function BusinessDetails() {
             />
             {/* <ReviewDetails /> */}
             {currentBusiness?.reviews.map((review) =>
-                <div className="review-details-container">
+                <div className="review-details-container" key={review}>
                     <p>
                         {review.user.first_name} {review.user.last_name}
                     </p>
-                    {user.id === review.user_id && (
+                    {user?.id === review.user_id && (   
+                        <OpenModalButton
+                        buttonText='Edit'
+                        modalComponent={<EditReview businessId={businessId} reviewId={review.id} />}
+                        />
+                    )}
+                    {user?.id === review.user_id && (   
                         <OpenModalButton
                         buttonText='Delete'
                         modalComponent={<DeleteReviewModal businessId={businessId} reviewId={review.id} />}

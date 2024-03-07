@@ -29,7 +29,7 @@ const userReviews = (reviews) => ({
 })
 
 export const thunkGetAllReviews = () => async (dispatch) => {
-    const response = await fetch ('/api/reviews')
+    const response = await fetch('/api/reviews')
 
     if (response.ok) {
         const allReviews = await response.json();
@@ -42,7 +42,7 @@ export const thunkGetAllReviews = () => async (dispatch) => {
 }
 
 export const thunkCreateReview = (review) => async (dispatch) => {
-    const response = await fetch ('/api/reviews/new', {
+    const response = await fetch('/api/reviews/new', {
         method: 'POST',
         body: review
     })
@@ -57,13 +57,30 @@ export const thunkCreateReview = (review) => async (dispatch) => {
 }
 
 export const thunkRemoveReview = (reviewId) => async (dispatch) => {
-    const response = await fetch (`/api/reviews/${reviewId}`, {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
 
     if (response.ok) {
         dispatch(removeReview(reviewId))
     }
+}
+
+export const thunkEditReview = (review, reviewId) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        body: review
+    })
+
+    if (response.ok) {
+        const updatedReview = await response.json();
+        dispatch(editReview(updatedReview));
+        return updatedReview
+    } else {
+        const error = await response.json();
+        return error
+    }
+
 }
 
 const initialState = {}
@@ -75,11 +92,17 @@ const reviewReducer = (state = initialState, action) => {
                 ...state,
                 allReviews: action.reviews
             }
-        case CREATE_REVIEW: 
+        case CREATE_REVIEW:
             return {
                 ...state,
                 [action.review.id]: action.review
             }
+        case EDIT_REVIEW: {
+            return {
+                ...state,
+                [action.review.id]: action.review
+            };
+        }
         case REMOVE_REVIEW: {
             const newAllReviews = { ...state }
             delete newAllReviews[action.reviewId]
@@ -89,8 +112,8 @@ const reviewReducer = (state = initialState, action) => {
             }
         }
 
-            default:
-                return state
+        default:
+            return state
     }
 }
 

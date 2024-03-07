@@ -97,7 +97,7 @@ function EditBusiness() {
                 console.log(pair[0] + ', ' + pair[1])
             }
 
-            dispatch(thunkEditBusiness(formData, businessId)).then((result) => {
+            await dispatch(thunkEditBusiness(formData, businessId)).then((result) => {
                 navigate(`/business/${result.id}`)
             })
         }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { thunkCreateReview } from "../../redux/review";
+import { thunkEditReview } from "../../redux/review";
 import { FaStar } from "react-icons/fa";
 import { useModal } from "../../context/Modal";
 import { thunkGetOneBusiness } from "../../redux/business";
 
-function ReviewForm({ businessId }) {
+function EditReview({ businessId, reviewId }) {
     const dispatch = useDispatch();
 
     const [review, setReview] = useState('')
@@ -23,8 +23,6 @@ function ReviewForm({ businessId }) {
         setFormErrors(errors);
     }, [review, rating])
 
-    // console.log('THIS IS THE BUSINESSID IN REVIEW MODAL', businessId)
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true);
@@ -41,7 +39,7 @@ function ReviewForm({ businessId }) {
                 console.log(pair[0] + ', ' + pair[1])
             }
 
-            await dispatch(thunkCreateReview(formData)).then(closeModal).then(() => {
+            await dispatch(thunkEditReview(formData, reviewId)).then(closeModal).then(() => {
                 dispatch(thunkGetOneBusiness(businessId))
             })
         }
@@ -49,7 +47,7 @@ function ReviewForm({ businessId }) {
 
     return (
         <div className="review-form-container">
-            <h1>THIS IS REVIEW FORM MODAL</h1>
+            <h1>THIS IS YOUR UPDATE REVIEW FORM MODAL</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>
@@ -100,4 +98,4 @@ function ReviewForm({ businessId }) {
     )
 }
 
-export default ReviewForm;
+export default EditReview;

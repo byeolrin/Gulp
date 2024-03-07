@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { thunkUserBusinesses } from "../../redux/business";
-import DeleteBusinessModal from "./DeleteBusinessModal";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteBusinessModal from "../DeleteBusinessModal/DeleteBusinessModal";
 
 function UserBusinesses() {
     const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function UserBusinesses() {
     const user = useSelector(state => state.session.user);
     const userBusinesses = useSelector(state => state.businesses.allBusinesses.businesses);
 
-    console.log('HELLO BUSINESS INFO', userBusinesses);
+    // console.log('HELLO BUSINESS INFO', userBusinesses);
 
     if (!user) {
         navigate('/login')

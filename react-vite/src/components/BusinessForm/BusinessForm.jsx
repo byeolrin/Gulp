@@ -71,7 +71,7 @@ function BusinessForm() {
                 console.log(pair[0] + ', ' + pair[1])
             }
 
-            dispatch(thunkCreateBusiness(formData)).then((result) => {
+            await dispatch(thunkCreateBusiness(formData)).then((result) => {
                 navigate(`/business/${result.id}`)
             })
         }
