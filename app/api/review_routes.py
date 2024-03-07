@@ -40,7 +40,7 @@ def create_new_review():
         db.session.add(new_review)
         db.session.commit()
         return new_review.to_dict(), 201
-    
+    print(form.errors)
     return form.errors, 400
 
 @review_routes.route('/<int:reviewId>', methods=['PUT'])

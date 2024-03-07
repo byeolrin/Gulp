@@ -126,7 +126,7 @@ def delete_business(businessId):
         return jsonify({ 'error': "Business couldn't be found" }), 404
     
     if business.owner_id != current_user.id:
-        return jsonify({ 'error': 'Forbidden '}), 401
+        return jsonify({ 'error': 'Forbidden ' }), 401
     
     if business.business_image:
         remove_file_from_s3(business.business_image)
@@ -135,3 +135,14 @@ def delete_business(businessId):
     db.session.commit()
 
     return jsonify({ 'message': 'Business has been deleted successfully.' }), 200
+
+@business_routes.route('/<int:businessId>/reviews')
+@login_required
+def get_business_reviews(businessId):
+    business = Business.query.get(businessId)
+
+    if not business:
+        return jsonify({ 'error': "Business couldn't be found" }), 404
+    
+    reviews = [review.to_dict() for review in business.reviews]
+    return jsonify({ 'reviews': reviews })
