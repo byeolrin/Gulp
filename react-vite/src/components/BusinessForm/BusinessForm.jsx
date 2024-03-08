@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { thunkCreateBusiness } from "../../redux/business";
 import './BusinessForm.css';
@@ -22,6 +22,8 @@ function BusinessForm() {
     const [businessImage, setBusinessImage] = useState('')
     const [formErrors, setFormErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+
+    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         const errors = {};
@@ -77,6 +79,10 @@ function BusinessForm() {
         }
     }
 
+    if (!user) {
+        navigate('/businesses')
+    }
+
     return (
         <div className="business-form-container">
             <h1>THIS IS THE BUSINESS FORM PAGE</h1>
@@ -101,8 +107,8 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>{submitted && formErrors.phoneNumber && (
-                            <div className="form-error">{formErrors.phoneNumber}</div>
-                        )}
+                        <div className="form-error">{formErrors.phoneNumber}</div>
+                    )}
                         Phone Number
                         <input
                             className='create-business-input'
@@ -159,7 +165,7 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>
-                    {submitted && formErrors.zipcode && (
+                        {submitted && formErrors.zipcode && (
                             <div className="form-error">{formErrors.zipcode}</div>
                         )}
                         ZIP Code
@@ -190,7 +196,7 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>
-                    {submitted && formErrors.latitude && (
+                        {submitted && formErrors.latitude && (
                             <div className="form-error">{formErrors.latitude}</div>
                         )}
                         Latitude
@@ -207,7 +213,7 @@ function BusinessForm() {
                 </div>
                 <div>
                     <label>
-                    {submitted && formErrors.longitude && (
+                        {submitted && formErrors.longitude && (
                             <div className="form-error">{formErrors.longitude}</div>
                         )}
                         Longitude

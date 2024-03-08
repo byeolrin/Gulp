@@ -104,7 +104,7 @@ function EditBusiness() {
     }
 
     if (!user) {
-        navigate('/login')
+        navigate('/businesses')
     }
     
     // if (user.id != business?.owner_id) {

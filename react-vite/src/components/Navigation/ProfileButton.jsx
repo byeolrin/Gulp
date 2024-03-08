@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { NavLink } from "react-router-dom";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -41,19 +41,25 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
-      </button>
+      <div className="avatar-button" onClick={toggleMenu}>
+        <span><i className="fa-solid fa-user"></i></span>
+      </div>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
+            <div>
+              <div className="dropdown-labels">{
+                user.first_name} {user.last_name}
+              </div>
+              <div className="dropdown-lables">
+                <NavLink to={'/businesses/manage'}>
+                  Your Businesses
+                </NavLink>
+              </div>
+              <div className="dropdown-labels">
                 <button onClick={logout}>Log Out</button>
-              </li>
-            </>
+              </div>
+            </div>
           ) : (
             <>
               <OpenModalMenuItem
@@ -68,7 +74,7 @@ function ProfileButton() {
               />
             </>
           )}
-        </ul>
+        </div>
       )}
     </>
   );

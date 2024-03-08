@@ -37,9 +37,8 @@ function BusinessDetails() {
                 buttonText='Write a review'
                 modalComponent={<ReviewForm businessId={businessId} />}
             />
-            {/* <ReviewDetails /> */}
             {currentBusiness?.reviews.map((review) =>
-                <div className="review-details-container" key={review}>
+                <div className="review-details-container" key={review.id}>
                     <p>
                         {review.user.first_name} {review.user.last_name}
                     </p>

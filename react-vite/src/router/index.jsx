@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
+// import LoginFormPage from '../components/LoginFormPage';
+// import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import BusinessForm from '../components/BusinessForm';
 import BusinessDetails from '../components/BusinessDetails';
 import EditBusiness from '../components/EditBusiness';
 import UserBusinesses from '../components/UserBusinesses';
+import AllBusinesses from '../components/AllBusinesses/AllBusinesses';
+import UserReviews from '../components/UserReviews/UserReviews';
 
 export const router = createBrowserRouter([
   {
@@ -13,16 +15,16 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <h1>The bottom half of this page is coming soon!!</h1>,
       },
-      {
-        path: "login",
-        element: <LoginFormPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
-      },
+      // {
+      //   path: "login",
+      //   element: <LoginFormPage />,
+      // },
+      // {
+      //   path: "signup",
+      //   element: <SignupFormPage />,
+      // },
       {
         path: '/business/new',
         element: <BusinessForm />
@@ -38,6 +40,14 @@ export const router = createBrowserRouter([
       {
         path: 'businesses/manage',
         element: <UserBusinesses />
+      },
+      {
+        path: 'businesses',
+        element: <AllBusinesses />
+      },
+      {
+        path: 'reviews/manage',
+        element: <UserReviews />
       },
       {
         path: '*',
