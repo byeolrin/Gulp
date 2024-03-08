@@ -10,9 +10,9 @@ function UserReviews() {
 
     console.log('THIS IS THE USER REVIEWS', Object.values(allReviews))
 
-    const ReviewsArr = Object.values(allReviews)
+    // const ReviewsArr = Object.values(allReviews)
 
-    console.log('THIS IS THE REVIEWS ARR', ReviewsArr)
+    // console.log('THIS IS THE REVIEWS ARR', ReviewsArr)
 
     useEffect(() => {
         dispatch(thunkGetAllReviews())
