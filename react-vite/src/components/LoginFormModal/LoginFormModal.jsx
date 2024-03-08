@@ -3,6 +3,8 @@ import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import SignupFormModal from "../SignupFormModal";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -28,33 +30,51 @@ function LoginFormModal() {
     }
   };
 
+  const demoUserLogin = async (e) => {
+    e.preventDefault()
+
+    await dispatch(thunkLogin({ email: 'demo@aa.io', password: 'password' })).then(closeModal)
+
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+    <div className="login-modal-container">
+      <h1>Sign in to Gulp</h1>
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}>
+        <div className="login-form-labels-container">
           <input
             type="text"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="login-form-labels"
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+          {errors.email && <p className="form-error">{errors.email}</p>}
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="login-form-labels"
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+          {errors.password && <p className="form-error">{errors.password}</p>}
+          <button className='login-button' type="submit">Log In</button>
+        </div>
       </form>
-    </>
+      <hr className="horizontal-line"></hr>
+      <button className='demo-login' onClick={demoUserLogin}>Continue as Demo User</button>
+      <div className="register-link">
+        <div className="register-link-text">Don&apos;t have an account?</div>
+        <OpenModalMenuItem
+                  itemText="Sign up for Gulp."
+                  modalComponent={<SignupFormModal />}
+                />
+      </div>
+    </div>
   );
 }
 

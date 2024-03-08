@@ -27,11 +27,11 @@ function EditReview({ businessId, review }) {
 
     useEffect(() => {
         const errors = {};
-        if (!review) errors.review = 'Review text is required'
+        if (!userReview || userReview.length < 10) errors.review = 'Review text is required to be 10 characters long'
         if (!rating || rating < 1 || rating > 5) errors.rating = 'Please provide a valid rating'
 
         setFormErrors(errors);
-    }, [review, rating])
+    }, [userReview, rating])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -103,7 +103,7 @@ function EditReview({ businessId, review }) {
                     </label>
                 </div>
                 <div>
-                    <button type="submit">
+                    <button className='update-review-button' type="submit">
                         Update Review
                     </button>
                 </div>

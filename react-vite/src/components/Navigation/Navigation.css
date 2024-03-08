@@ -82,7 +82,7 @@
 
 .right-nav-section {
   display: flex;
-  gap: 10px;
+  gap: 3rem;
 }
 
 .view-business-text {
@@ -116,4 +116,8 @@
 
 .dropdown-labels-info:hover {
   background-color: #eeeeee;
+}
+
+.modal-div {
+  width: 100%;
 }

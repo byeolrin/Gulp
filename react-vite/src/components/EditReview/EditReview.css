@@ -28,3 +28,23 @@
     outline: none;
     font-size: 1.25rem;
 }
+
+.review-info-container .form-error{
+    margin: 0 2rem;
+}
+
+.update-review-button {
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    width: 30%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.update-review-button:hover {
+  cursor: pointer;
+  background: rgba(224, 81, 81, 0.7);
+}

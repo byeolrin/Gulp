@@ -5,6 +5,8 @@
 
 .all-user-businesses-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .business-container-link {
@@ -12,7 +14,60 @@
     color: black;
 }
 
+.business-container {
+    box-shadow: rgba(0,0,0,0.15) 0px 2px 18px 0px;
+    border-radius: 4px;
+    padding: 10px;
+    margin: .5rem;
+}
+
 .user-business-image {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
+}
+
+.business-container-info {
+    color: black;
+    font-size: 1.1rem;
+    display: flex;
+    margin: 1rem;
+}
+
+.business-form-navigate-button {
+    margin: 2rem 0px;
+    border: 1px solid rgba(0,0,0,0.15);
+    width: fit-content;
+    border-radius: 25px;
+    padding: 20px;
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.business-form-navigate-button:hover {
+    background: rgba(224, 81, 81, 0.7);
+    cursor: pointer;
+}
+
+.user-business-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem 0;
+}
+
+.user-business-individual-buttons {
+    border: none;
+    width: 6rem;
+    height: 3rem;
+    border-radius: 4px;
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+}
+
+.user-business-individual-buttons:hover {
+    cursor: pointer;
+    background: rgba(224, 81, 81, 0.7);
 }

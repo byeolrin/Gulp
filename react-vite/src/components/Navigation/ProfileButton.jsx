@@ -73,16 +73,22 @@ function ProfileButton() {
             </div>
           ) : (
             <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
+              <div className="dropdown-labels">
+                <OpenModalMenuItem
+                  itemText="Log In"
+                  onItemClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                  icon="fa-solid fa-arrow-right-to-bracket"
+                />
+              </div>
+              <div className="dropdown-labels">
+                <OpenModalMenuItem
+                  itemText="Sign Up"
+                  onItemClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                  icon="fa-solid fa-user-plus"
+                />
+              </div>
             </>
           )}
         </div>
