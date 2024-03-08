@@ -1,0 +1,65 @@
+.all-businesses-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 100px;
+}
+
+.individual-business-card {
+    display: table;
+    margin: 10px 0px;
+    width: 90%;
+}
+
+.business-card-info {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(235, 235, 235, 1);
+    padding: 24px;
+}
+
+.left-side-of-business-card {
+    padding-right: 20px;
+}
+
+.business-card-image {
+    width: 200px;
+    height: 200px;
+}
+
+.business-card-label {
+    margin: 18px 0px;
+}
+
+.star-icon {
+    width: 20px;
+    height: 20px;
+    background: rgb(255, 100, 61);
+    color: white;
+    margin: 0px 2px;
+    padding: 5px;
+}
+
+.star-icon-half {
+    width: 20px;
+    height: 20px;
+    color: white;
+    margin: 0px 2px;
+    padding: 5px;
+    background: linear-gradient(to right, rgb(255, 100, 61) 0%, rgb(255, 100, 61) 50%, rgb(187, 186, 192) 50%, rgb(187, 186, 192) 100%);
+}
+
+.star-icon-empty {
+    width: 20px;
+    height: 20px;
+    color: white;
+    margin: 0px 2px;
+    padding: 5px;
+    background: rgb(187, 186, 192);
+}
+
+.dollar-icon {
+   font-size: small;
+}
+

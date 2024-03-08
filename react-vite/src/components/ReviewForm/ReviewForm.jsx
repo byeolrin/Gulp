@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateReview } from "../../redux/review";
 import { FaStar } from "react-icons/fa";
 import { useModal } from "../../context/Modal";
 import { thunkGetOneBusiness } from "../../redux/business";
+import './ReviewForm.css';
 
 function ReviewForm({ businessId }) {
     const dispatch = useDispatch();
@@ -15,10 +16,13 @@ function ReviewForm({ businessId }) {
     const [submitted, setSubmitted] = useState(false)
     const { closeModal } = useModal()
 
+    const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business)
+
+
     useEffect(() => {
         const errors = {};
         if (!review) errors.review = 'Review text is required'
-        if (!rating || rating < 1 || rating > 5) errors.rating = 'Please provide a valid rating'
+        if (!rating || rating < 1 || rating > 5) errors.rating = 'Please select a rating'
 
         setFormErrors(errors);
     }, [review, rating])
@@ -49,24 +53,12 @@ function ReviewForm({ businessId }) {
 
     return (
         <div className="review-form-container">
-            <h1>THIS IS REVIEW FORM MODAL</h1>
+            <h1>{currentBusiness?.business_name}</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        {submitted && formErrors.review && (
-                            <div className="form-error">{formErrors.review}</div>
-                        )}
-                        Review
-                        <input
-                            className='create-review-input'
-                            type='text'
-                            placeholder="Please leave your review here..."
-                            value={review}
-                            onChange={(e) => {
-                                setReview(e.target.value)
-                            }}
-                            required />
-                    </label>
+                <div className="review-info-container">
+                    {submitted && formErrors.rating && (
+                        <div className="form-error">{formErrors.rating}</div>
+                    )}
                     <div className="star-rating-form">
                         {[...Array(5)].map((star, i) => {
                             const ratingValue = i + 1;
@@ -81,7 +73,7 @@ function ReviewForm({ businessId }) {
                                     <FaStar
                                         className="star"
                                         color={
-                                            ratingValue <= (hover || rating) ? "#ff9966" : "#e4e5e9"
+                                            ratingValue <= (hover || rating) ? "#ff643d" : "#e4e5e9"
                                         }
                                         size={35}
                                         onMouseEnter={() => setHover(ratingValue)}
@@ -91,6 +83,22 @@ function ReviewForm({ businessId }) {
                             )
                         })}
                     </div>
+                    <label>
+                        {submitted && formErrors.review && (
+                            <div className="form-error">{formErrors.review}</div>
+                        )}
+                        <textarea
+                            className='review-text'
+                            type='text'
+                            placeholder="Please leave your review here..."
+                            value={review}
+                            onChange={(e) => {
+                                setReview(e.target.value)
+                            }}
+                        />
+                    </label>
+                </div>
+                <div>
                     <button type="submit">
                         Post Review
                     </button>

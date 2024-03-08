@@ -2,6 +2,7 @@ const LOAD_ALL = 'reviews/LOAD_ALL';
 const CREATE_REVIEW = 'reviews/CREATE_REVIEW';
 const EDIT_REVIEW = 'reviews/EDIT_REVIEW';
 const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
+const LOAD_USER_BUSINESS_REVIEW = 'reviews/LOAD_USER_BUSINESS_REVIEW';
 
 const loadAll = (reviews) => ({
     type: LOAD_ALL,
@@ -23,10 +24,10 @@ const removeReview = (reviewId) => ({
     reviewId
 })
 
-// const userReviews = (reviews) => ({
-//     type: LOAD_ALL,
-//     reviews
-// })
+const loadUserBusinessReview = (review) => ({
+    type: LOAD_USER_BUSINESS_REVIEW,
+    review
+})
 
 export const thunkGetAllReviews = () => async (dispatch) => {
     const response = await fetch('/api/reviews')
@@ -83,6 +84,19 @@ export const thunkEditReview = (review, reviewId) => async (dispatch) => {
 
 }
 
+export const thunkUserBusinessReview = (businessId, userId) => async (dispatch) => {
+    const response = await fetch (`api/${businessId}/reviews/${userId}`)
+    
+    if (response.ok) {
+        const currentUserReview = await response.json();
+        dispatch(loadUserBusinessReview(currentUserReview));
+        return currentUserReview
+    } else {
+        const error = await response.json();
+        return error;
+    }
+}
+
 const initialState = {}
 
 const reviewReducer = (state = initialState, action) => {
@@ -111,7 +125,12 @@ const reviewReducer = (state = initialState, action) => {
                 allReviews: newAllReviews
             }
         }
-
+        case LOAD_USER_BUSINESS_REVIEW: {
+            return {
+                ...state,
+                userBusinessReview: action.review
+            };
+        }
         default:
             return state
     }

@@ -1,5 +1,12 @@
 .profile-dropdown {
   position: absolute;
+  top: 5rem;
+  right: 5rem;
+  width: 266px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 18px #00000026;
+  padding: 16px;
 }
 
 .nav-bar-container {
@@ -68,6 +75,7 @@
 }
 
 .avatar-button {
+  position: relative;
   border: 1px solid black;
   border-radius: 25rem;
 }
@@ -82,4 +90,30 @@
   align-items: center;
   text-decoration: none;
   color: rgba(45, 46, 47, 1);
+}
+
+.dropdown-labels {
+  color: rgba(45, 46, 47, 1);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-labels-info {
+  color: rgba(45, 46, 47, 1);
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-labels:hover {
+  background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.dropdown-labels-info:hover {
+  background-color: #eeeeee;
 }

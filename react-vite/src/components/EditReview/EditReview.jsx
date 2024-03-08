@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { thunkEditReview } from "../../redux/review";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkEditReview, thunkUserBusinessReview } from "../../redux/review";
 import { FaStar } from "react-icons/fa";
 import { useModal } from "../../context/Modal";
 import { thunkGetOneBusiness } from "../../redux/business";
+import './EditReview.css';
 
-function EditReview({ businessId, reviewId }) {
+function EditReview({ businessId, review }) {
     const dispatch = useDispatch();
 
-    const [review, setReview] = useState('')
-    const [rating, setRating] = useState(null)
+    const [userReview, setUserReview] = useState(review?.review)
+    const [rating, setRating] = useState(review?.rating)
     const [hover, setHover] = useState(null)
     const [formErrors, setFormErrors] = useState('')
     const [submitted, setSubmitted] = useState(false)
     const { closeModal } = useModal()
+
+    const user = useSelector((state) => state.session.user);
+    const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business)
+
+    // console.log('hello this is the userReview', currentBusiness.business_name)
+
+    useEffect(() => {
+        dispatch(thunkUserBusinessReview(businessId, user.id))
+    }, [dispatch, businessId, user.id])
 
     useEffect(() => {
         const errors = {};
@@ -31,7 +41,7 @@ function EditReview({ businessId, reviewId }) {
             const formData = new FormData();
 
             formData.append('businessId', businessId)
-            formData.append('review', review)
+            formData.append('review', userReview)
             formData.append('rating', rating)
             formData.append('submit', true)
 
@@ -39,7 +49,7 @@ function EditReview({ businessId, reviewId }) {
                 console.log(pair[0] + ', ' + pair[1])
             }
 
-            await dispatch(thunkEditReview(formData, reviewId)).then(closeModal).then(() => {
+            await dispatch(thunkEditReview(formData, review.id)).then(closeModal).then(() => {
                 dispatch(thunkGetOneBusiness(businessId))
             })
         }
@@ -47,24 +57,12 @@ function EditReview({ businessId, reviewId }) {
 
     return (
         <div className="review-form-container">
-            <h1>THIS IS YOUR UPDATE REVIEW FORM MODAL</h1>
+            <h1>{currentBusiness?.business_name}</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        {submitted && formErrors.review && (
-                            <div className="form-error">{formErrors.review}</div>
-                        )}
-                        Review
-                        <input
-                            className='create-review-input'
-                            type='text'
-                            placeholder="Please leave your review here..."
-                            value={review}
-                            onChange={(e) => {
-                                setReview(e.target.value)
-                            }}
-                            required />
-                    </label>
+                <div className="review-info-container">
+                    {submitted && formErrors.rating && (
+                        <div className="form-error">{formErrors.rating}</div>
+                    )}
                     <div className="star-rating-form">
                         {[...Array(5)].map((star, i) => {
                             const ratingValue = i + 1;
@@ -79,7 +77,7 @@ function EditReview({ businessId, reviewId }) {
                                     <FaStar
                                         className="star"
                                         color={
-                                            ratingValue <= (hover || rating) ? "#ff9966" : "#e4e5e9"
+                                            ratingValue <= (hover || rating) ? "#ff643d" : "#e4e5e9"
                                         }
                                         size={35}
                                         onMouseEnter={() => setHover(ratingValue)}
@@ -89,8 +87,24 @@ function EditReview({ businessId, reviewId }) {
                             )
                         })}
                     </div>
+                    <label>
+                        {submitted && formErrors.review && (
+                            <div className="form-error">{formErrors.review}</div>
+                        )}
+                        <textarea
+                            className='review-text'
+                            type='text'
+                            placeholder="Please leave your review here..."
+                            value={userReview}
+                            onChange={(e) => {
+                                setUserReview(e.target.value)
+                            }}
+                        />
+                    </label>
+                </div>
+                <div>
                     <button type="submit">
-                        Post Review
+                        Update Review
                     </button>
                 </div>
             </form>

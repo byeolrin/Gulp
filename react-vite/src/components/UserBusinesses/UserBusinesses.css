@@ -1,0 +1,18 @@
+.user-businesses-container {
+    padding: 0px 50px;
+    width: 80%;
+}
+
+.all-user-businesses-container {
+    display: flex;
+}
+
+.business-container-link {
+    text-decoration: none;
+    color: black;
+}
+
+.user-business-image {
+    width: 300px;
+    height: 300px;
+}

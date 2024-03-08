@@ -16,14 +16,19 @@ function SignupFormModal() {
   const [submitted, setSubmitted] = useState(false);
   const { closeModal } = useModal();
 
+  const validate_email = (email) => {
+    const regexEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regexEmailPattern.test(email)
+  }
+
   useEffect(() => {
     const validationErrors = {}
-    if (!firstName.length) validationErrors.firstName = 'First Name is required'
-    if (!lastName.length) validationErrors.lastName = 'Last Name is required'
-    if (!username.length) validationErrors.username = 'Username is required'
-    if (!email) validationErrors.email = 'Email is invalid'
-    if (password.length < 8) validationErrors.password = 'Password must be at least 8 characters'
-    if (confirmPassword.length < 8) validationErrors.confirmPassword = 'Confirm Password must be at least 8 characters'
+    if (!firstName.length || firstName.length < 1) validationErrors.firstName = 'First Name is required'
+    if (!lastName.length || lastName.length < 1) validationErrors.lastName = 'Last Name is required'
+    if (!username.length || username.length < 4 || username.length > 16) validationErrors.username = 'Username is required to be at between 4 to 16 characters'
+    if (!validate_email(email)) validationErrors.email = 'Email is invalid'
+    if (password.length < 8 || password.length > 24) validationErrors.password = 'Password must be at least 8 characters'
+    if (confirmPassword.length < 8 || confirmPassword.length > 24) validationErrors.confirmPassword = 'Confirm Password must be at least 8 characters'
     setErrors(validationErrors)
   }, [firstName, lastName, email, username, password, confirmPassword])
 

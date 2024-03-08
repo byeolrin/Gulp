@@ -146,3 +146,14 @@ def get_business_reviews(businessId):
     
     reviews = [review.to_dict() for review in business.reviews]
     return jsonify({ 'reviews': reviews })
+
+@business_routes.route('/<int:businessId>/reviews/<int:userId>')
+@login_required
+def get_business_user_review(businessId, userId):
+    business = Business.query.get(businessId)
+
+    if not business:
+        return jsonify({ 'error': "Business couldn't be found" }), 404
+    
+    user_review = [review.to_dict() for review in business.reviews if review.user_id == userId]
+    return jsonify({ 'user_reviews': user_review })

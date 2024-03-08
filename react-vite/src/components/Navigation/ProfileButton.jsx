@@ -4,10 +4,11 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProfileButton() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -39,6 +40,11 @@ function ProfileButton() {
     closeMenu();
   };
 
+  const handleBusinessNavigate = (e) => {
+    e.preventDefault();
+    navigate('/businesses/manage')
+  }
+
   return (
     <>
       <div className="avatar-button" onClick={toggleMenu}>
@@ -48,16 +54,21 @@ function ProfileButton() {
         <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <div>
-              <div className="dropdown-labels">{
-                user.first_name} {user.last_name}
-              </div>
-              <div className="dropdown-lables">
-                <NavLink to={'/businesses/manage'}>
+              <div className="dropdown-info">
+                <div className="dropdown-labels-info">
+                  <i className="fa-solid fa-user"></i>
+                  {user.first_name} {user.last_name}
+                </div>
+                <div className="dropdown-labels" onClick={handleBusinessNavigate}>
+                  <i className="fa-solid fa-building"></i>
                   Your Businesses
-                </NavLink>
+                </div>
               </div>
-              <div className="dropdown-labels">
-                <button onClick={logout}>Log Out</button>
+              <div className="dropdown-logout">
+                <div className="dropdown-labels" onClick={logout}>
+                  <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                  Logout
+                </div>
               </div>
             </div>
           ) : (

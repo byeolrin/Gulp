@@ -28,16 +28,16 @@ function BusinessForm() {
     useEffect(() => {
         const errors = {};
         if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
-        if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
+        if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number that contains 10 digit'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
         if (!state) errors.state = 'State is required';
-        if (!zipcode || String(zipcode).length !== 5) errors.zipcode = 'Please provide a valid Zipcode';
+        if (!zipcode || String(zipcode).length !== 5) errors.zipcode = 'Please provide a valid Zipcode that contains 5 digit';
         if (!description) errors.description = 'Description is required';
         if (!latitude || latitude > 90 || latitude < -90) errors.latitude = 'Latitude must be between -90 and 90';
         if (!longitude || longitude > 180 || longitude < -180) errors.longitude = 'Longitude must be between -180 and 180';
         if (!priceRange) errors.priceRange = 'Price Range is required';
-        if (!businessURL) errors.businessURL = 'Business URL is required';
+        if (!businessURL || !/^(ftp|http|https):\/\/[^ "]+$/.test(businessURL)) errors.url = 'Please provide a valid URL'
         if (!businessImage) errors.businessImage = 'Business Image is required';
 
         setFormErrors(errors);
@@ -284,7 +284,7 @@ function BusinessForm() {
                         Website Link
                         <input
                             className='create-business-input'
-                            type='text'
+                            type='url'
                             placeholder='URL'
                             value={businessURL}
                             onChange={(e) => {

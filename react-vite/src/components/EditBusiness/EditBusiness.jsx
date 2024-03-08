@@ -12,18 +12,18 @@ function EditBusiness() {
 
     console.log('THIS IS THE EDIT BUSINESS FORM', business, user)
 
-    const [businessName, setBusinessName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [zipcode, setZipcode] = useState('');
-    const [description, setDescription] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [priceRange, setPriceRange] = useState('');
-    const [businessURL, setBusinessURL] = useState('');
-    const [businessImage, setBusinessImage] = useState('');
+    const [businessName, setBusinessName] = useState(business?.business_name);
+    const [phoneNumber, setPhoneNumber] = useState(business?.phone.replace(/\D/g, ''));
+    const [address, setAddress] = useState(business?.address);
+    const [city, setCity] = useState(business?.city);
+    const [state, setState] = useState(business?.state);
+    const [zipcode, setZipcode] = useState(business?.zipcode);
+    const [description, setDescription] = useState(business?.description);
+    const [latitude, setLatitude] = useState(business?.latitude.toFixed(4));
+    const [longitude, setLongitude] = useState(business?.longitude.toFixed(4));
+    const [priceRange, setPriceRange] = useState(parseInt(business?.price_range));
+    const [businessURL, setBusinessURL] = useState(business?.business_url);
+    const [businessImage, setBusinessImage] = useState(business?.business_image);
     const [formErrors, setFormErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
 
@@ -32,36 +32,18 @@ function EditBusiness() {
     }, [dispatch, businessId])
 
     useEffect(() => {
-        if (business) {
-            const initialNumber = business.phone.replace(/\D/g, '')
-            setBusinessName(business.business_name);
-            setPhoneNumber(initialNumber);
-            setAddress(business.address);
-            setCity(business.city);
-            setState(business.state);
-            setZipcode(business.zipcode);
-            setDescription(business.description);
-            setLatitude(parseFloat(business.latitude).toFixed(4));
-            setLongitude(parseFloat(business.longitude).toFixed(4));
-            setPriceRange(business.price_range);
-            setBusinessURL(business.business_url);
-            setBusinessImage(business.business_image);
-        }
-    }, [business]);
-
-    useEffect(() => {
         const errors = {};
         if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
-        if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number'
+        if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number that contains 10 digit'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
         if (!state) errors.state = 'State is required';
-        if (!zipcode || String(zipcode).length !== 5) errors.zipcode = 'Please provide a valid Zipcode';
+        if (!zipcode || String(zipcode).length !== 5) errors.zipcode = 'Please provide a valid Zipcode that contains 5 digit';
         if (!description) errors.description = 'Description is required';
         if (!latitude || latitude > 90 || latitude < -90) errors.latitude = 'Latitude must be between -90 and 90';
         if (!longitude || longitude > 180 || longitude < -180) errors.longitude = 'Longitude must be between -180 and 180';
         if (!priceRange) errors.priceRange = 'Price Range is required';
-        if (!businessURL) errors.businessURL = 'Business URL is required';
+        if (!businessURL || !/^(ftp|http|https):\/\/[^ "]+$/.test(businessURL)) errors.url = 'Please provide a valid URL'
         if (!businessImage) errors.businessImage = 'Business Image is required';
 
         setFormErrors(errors);
@@ -258,12 +240,12 @@ function EditBusiness() {
                         <label>
                             $
                             <input
-                                type="radio"
-                                className="create-business-input"
-                                value="1"
-                                checked={priceRange === "1"}
-                                onChange={(e) => setPriceRange(e.target.value)}
-                                required
+                                 type="radio"
+                                 className="create-business-input"
+                                 value={1}
+                                 checked={priceRange === 1}
+                                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                 required
                             />
                         </label>
                         <label>
@@ -271,31 +253,32 @@ function EditBusiness() {
                             <input
                                 type="radio"
                                 className="create-business-input"
-                                value="2"
-                                checked={priceRange === "2"}
-                                onChange={(e) => setPriceRange(e.target.value)}
+                                value={2}
+                                checked={priceRange === 2}
+                                onChange={(e) => setPriceRange(parseInt(e.target.value))}
                                 required
                             />
                         </label>
                         <label>
                             $$$
                             <input
-                                type="radio"
-                                className="create-business-input"
-                                value="3"
-                                checked={priceRange === "3"}
-                                onChange={(e) => setPriceRange(e.target.value)}
-                                required
+                                 type="radio"
+                                 className="create-business-input"
+                                 value={3}
+                                 checked={priceRange === 3}
+                                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                 required
                             />
                         </label>
                         <label>
                             $$$$
                             <input
-                                type="radio"
-                                className="create-business-input"
-                                value="4"
-                                checked={priceRange === "4"}
-                                onChange={(e) => setPriceRange(e.target.value)}
+                                 type="radio"
+                                 className="create-business-input"
+                                 value={4}
+                                 checked={priceRange === 4}
+                                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                 required
                             />
                         </label>
                     </div>
