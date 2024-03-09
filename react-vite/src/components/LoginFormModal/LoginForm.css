@@ -1,0 +1,85 @@
+.login-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.login-form-labels-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form-labels {
+    height: 2rem;
+    width: 60%;
+    margin: .5rem 0;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.login-button {
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    width: 60%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.login-button:hover {
+    cursor: pointer;
+    background: rgba(224, 81, 81, 0.7);
+}
+
+.demo-login {
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    width: 60%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.demo-login:hover {
+    cursor: pointer;
+    background: rgba(224, 81, 81, 0.7);
+}
+
+.login-form {
+    width: 100%;
+}
+
+.horizontal-line {
+    border: .5px solid rgb(193, 193, 193);
+    width: 80%;
+}
+
+.register-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%
+}
+
+.register-link .modal-div {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.register-link .modal-div:hover {
+    cursor: pointer;
+    color: rgb(39, 140, 130);
+}
+
+.register-link-text {
+    font-size: 1rem;
+}

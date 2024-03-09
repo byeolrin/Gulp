@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkRemoveReview } from "../../redux/review";
 import { thunkGetOneBusiness } from "../../redux/business";
+import './DeleteReviewModal.css';
+
 
 function DeleteReviewModal({ businessId, reviewId }) {
     const dispatch = useDispatch();
@@ -12,15 +14,17 @@ function DeleteReviewModal({ businessId, reviewId }) {
     }
 
     return (
-        <>
-        <h2>Are you sure you want to delete this review?</h2>
-        <button onClick={handleDelete}>
+        <div className="delete-review-container">
+            <h2>Are you sure you want to delete this review?</h2>
+            <div className="delete-review-buttons-container">
+                <button className='delete-review-button' onClick={handleDelete}>
                     YES
                 </button>
-                <button onClick={closeModal}>
+                <button className='delete-review-button' onClick={closeModal}>
                     NO
                 </button>
-        </>
+            </div>
+        </div>
     )
 }
 

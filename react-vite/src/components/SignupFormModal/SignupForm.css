@@ -1,0 +1,42 @@
+.signup-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.signup-form-labels-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-form-labels {
+    height: 1.75rem;
+    width: 60%;
+    margin: .5rem 0;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.signup-button {
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    width: 60%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.signup-button:hover {
+    cursor: pointer;
+    background: rgba(224, 81, 81, 0.7);
+}
+
+.signup-form {
+    width: 100%;
+}
+

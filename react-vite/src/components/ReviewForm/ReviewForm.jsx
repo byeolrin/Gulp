@@ -21,7 +21,7 @@ function ReviewForm({ businessId }) {
 
     useEffect(() => {
         const errors = {};
-        if (!review) errors.review = 'Review text is required'
+        if (!review || review.length < 10) errors.review = 'Review text is required to be 10 characters long'
         if (!rating || rating < 1 || rating > 5) errors.rating = 'Please select a rating'
 
         setFormErrors(errors);
@@ -99,7 +99,7 @@ function ReviewForm({ businessId }) {
                     </label>
                 </div>
                 <div>
-                    <button type="submit">
+                    <button className='post-review-button' type="submit">
                         Post Review
                     </button>
                 </div>

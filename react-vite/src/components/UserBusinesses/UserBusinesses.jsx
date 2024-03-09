@@ -25,11 +25,24 @@ function UserBusinesses() {
     const handleEdit = (businessId) => {
         navigate(`/business/${businessId}/edit`);
     }
-    
+
+    const handleBusinessForm = (e) => {
+        e.preventDefault();
+        navigate('/business/new')
+    }
+
     return (
         <>
             <div className="user-businesses-container">
                 <h1>Your Businesses</h1>
+                <div className="business-form-navigate-button" onClick={handleBusinessForm}>
+                    <span>
+                        <i className="fa-solid fa-plus"></i>
+                    </span>
+                    <span>
+                        New Business
+                    </span>
+                </div>
                 <div className="all-user-businesses-container">
                     {userBusinesses?.map((business) => (
                         <div
@@ -43,15 +56,16 @@ function UserBusinesses() {
                                 </div>
                                 <div className="business-container-info">{business.business_name}</div>
                             </NavLink>
-                            <div className="user-business-button" onClick={() => handleEdit(business.id)}>
-                                <button>
+                            <div className="user-business-buttons">
+                                <button className='user-business-individual-buttons' onClick={() => handleEdit(business.id)}>
                                     EDIT
                                 </button>
+                                <OpenModalButton
+                                    className='user-business-individual-buttons' 
+                                    buttonText='DELETE'
+                                    modalComponent={<DeleteBusinessModal businessId={business.id} userId={user.id} />}
+                                />
                             </div>
-                            <OpenModalButton
-                                buttonText='DELETE'
-                                modalComponent={<DeleteBusinessModal businessId={business.id} userId={user.id} />}
-                            />
                         </div>
                     ))}
                 </div>
