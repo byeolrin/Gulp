@@ -1,0 +1,30 @@
+.delete-review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.delete-review-buttons-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 2rem;
+}
+
+.delete-review-button {
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    width: 25%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.delete-review-button:hover {
+    cursor: pointer;
+    background: rgba(224, 81, 81, 0.7);
+}

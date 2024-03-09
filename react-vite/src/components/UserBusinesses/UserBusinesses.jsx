@@ -37,7 +37,7 @@ function UserBusinesses() {
                 <h1>Your Businesses</h1>
                 <div className="business-form-navigate-button" onClick={handleBusinessForm}>
                     <span>
-                        <i class="fa-solid fa-plus"></i>
+                        <i className="fa-solid fa-plus"></i>
                     </span>
                     <span>
                         New Business
