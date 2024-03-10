@@ -10,7 +10,7 @@ function EditBusiness() {
     const business = useSelector(state => state.businesses.oneBusiness.business);
     const user = useSelector(state => state.session.user);
 
-    console.log('THIS IS THE EDIT BUSINESS FORM', business, user)
+    // console.log('THIS IS THE EDIT BUSINESS FORM', business, user)
 
     const [businessName, setBusinessName] = useState(business?.business_name);
     const [phoneNumber, setPhoneNumber] = useState(business?.phone.replace(/\D/g, ''));
@@ -24,6 +24,7 @@ function EditBusiness() {
     const [priceRange, setPriceRange] = useState(parseInt(business?.price_range));
     const [businessURL, setBusinessURL] = useState(business?.business_url);
     const [businessImage, setBusinessImage] = useState(business?.business_image);
+    const [fileName, setFileName] = useState('');
     const [formErrors, setFormErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
 
@@ -75,9 +76,9 @@ function EditBusiness() {
             formData.append('business_image', businessImage)
             formData.append('submit', true)
 
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1])
-            }
+            // for (let pair of formData.entries()) {
+            //     console.log(pair[0] + ', ' + pair[1])
+            // }
 
             await dispatch(thunkEditBusiness(formData, businessId)).then((result) => {
                 navigate(`/business/${result.id}`)
@@ -95,223 +96,220 @@ function EditBusiness() {
 
     return (
         <div className="business-form-container">
-            <h1>THIS IS THE UPDATE BUSINESS FORM PAGE</h1>
+            <h1>Welcome to Gulp! Let&apos;s get started with your business information</h1>
             <form onSubmit={handleSubmit}
-                encType="multipart/form-data">
-                <div>
-                    <label>
-                        {submitted && formErrors.businessName && (
-                            <div className="form-error">{formErrors.businessName}</div>
-                        )}
-                        Name
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='Business Name'
-                            value={businessName}
-                            onChange={(e) => {
-                                setBusinessName(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>{submitted && formErrors.phoneNumber && (
-                        <div className="form-error">{formErrors.phoneNumber}</div>
-                    )}
-                        Phone Number
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='xxx-xxx-xxxx'
-                            value={phoneNumber}
-                            onChange={(e) => {
-                                setPhoneNumber(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Address
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='Street Address'
-                            value={address}
-                            onChange={(e) => {
-                                setAddress(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        City
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='City'
-                            value={city}
-                            onChange={(e) => {
-                                setCity(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        State
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='State'
-                            value={state}
-                            onChange={(e) => {
-                                setState(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        {submitted && formErrors.zipcode && (
-                            <div className="form-error">{formErrors.zipcode}</div>
-                        )}
-                        ZIP Code
-                        <input
-                            className='create-business-input'
-                            type='number'
-                            placeholder='ZIP Code'
-                            value={zipcode}
-                            onChange={(e) => {
-                                setZipcode(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Description
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='Please tell me something about your business...'
-                            value={description}
-                            onChange={(e) => {
-                                setDescription(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Latitude
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='Latitude'
-                            value={latitude}
-                            onChange={(e) => {
-                                setLatitude(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Longitude
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='Longitude'
-                            value={longitude}
-                            onChange={(e) => {
-                                setLongitude(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Price Range
-                    </label>
-                    <div>
-                        <label>
-                            $
+                encType="multipart/form-data"
+                className="business-form">
+                <div className="all-business-form-inputs">
+                    <div className='business-form-input-label'>
+                        <div className="business-name-phone-container">
+                            {submitted && formErrors.businessName && (
+                                <div className="form-error">{formErrors.businessName}</div>
+                            )}
                             <input
-                                 type="radio"
-                                 className="create-business-input"
-                                 value={1}
-                                 checked={priceRange === 1}
-                                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                                 required
-                            />
-                        </label>
-                        <label>
-                            $$
+                                className='business-form-name-input'
+                                type='text'
+                                placeholder='Business Name'
+                                value={businessName}
+                                onChange={(e) => {
+                                    setBusinessName(e.target.value)
+                                }}
+                                required />
+                            {submitted && formErrors.phoneNumber && (
+                                <div className="form-error">{formErrors.phoneNumber}</div>
+                            )}
                             <input
-                                type="radio"
-                                className="create-business-input"
-                                value={2}
-                                checked={priceRange === 2}
-                                onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                                required
-                            />
-                        </label>
-                        <label>
-                            $$$
+                                className='business-form-phone-input'
+                                type='number'
+                                placeholder='Phone'
+                                value={phoneNumber}
+                                onChange={(e) => {
+                                    setPhoneNumber(e.target.value)
+                                }}
+                                required />
+                        </div>
+                        <div className="business-address-container">
+                            {submitted && formErrors.address && (
+                                <div className="form-error">{formErrors.address}</div>
+                            )}
                             <input
-                                 type="radio"
-                                 className="create-business-input"
-                                 value={3}
-                                 checked={priceRange === 3}
-                                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                                 required
-                            />
-                        </label>
-                        <label>
-                            $$$$
+                                className='business-form-address-input'
+                                type='text'
+                                placeholder='Street Address'
+                                value={address}
+                                onChange={(e) => {
+                                    setAddress(e.target.value)
+                                }}
+                                required />
+                        </div>
+                        <div className="business-city-state-zip-container">
+                            {submitted && formErrors.city && (
+                                <div className="form-error">{formErrors.city}</div>
+                            )}
                             <input
-                                 type="radio"
-                                 className="create-business-input"
-                                 value={4}
-                                 checked={priceRange === 4}
-                                 onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                                 required
-                            />
-                        </label>
+                                className='business-form-city-input'
+                                type='text'
+                                placeholder='City'
+                                value={city}
+                                onChange={(e) => {
+                                    setCity(e.target.value)
+                                }}
+                                required />
+                            {submitted && formErrors.state && (
+                                <div className="form-error">{formErrors.state}</div>
+                            )}
+                            <input
+                                className='business-form-state-input'
+                                type='text'
+                                placeholder='State'
+                                value={state}
+                                onChange={(e) => {
+                                    setState(e.target.value)
+                                }}
+                                required />
+                            {submitted && formErrors.zipcode && (
+                                <div className="form-error">{formErrors.zipcode}</div>
+                            )}
+                            <input
+                                className='business-form-zip-input'
+                                type='number'
+                                placeholder='ZIP Code'
+                                value={zipcode}
+                                onChange={(e) => {
+                                    setZipcode(e.target.value)
+                                }}
+                                required />
+                        </div>
+                        <div className="business-description-container">
+                            {submitted && formErrors.description && (
+                                <div className="form-error">{formErrors.description}</div>
+                            )}
+                            <textarea
+                                className='business-description-input'
+                                type='text'
+                                placeholder='Please tell me something about your business...'
+                                value={description}
+                                onChange={(e) => {
+                                    setDescription(e.target.value)
+                                }}
+                                required />
+                        </div>
+                        <div className="business-lat-lng-container">
+                            {submitted && formErrors.latitude && (
+                                <div className="form-error">{formErrors.latitude}</div>
+                            )}
+                            <input
+                                className='business-form-lat-input'
+                                type='number'
+                                placeholder='Latitude'
+                                value={latitude}
+                                onChange={(e) => {
+                                    setLatitude(e.target.value)
+                                }}
+                                required />
+                            {submitted && formErrors.longitude && (
+                                <div className="form-error">{formErrors.longitude}</div>
+                            )}
+                            <input
+                                className='business-form-lng-input'
+                                type='number'
+                                placeholder='Longitude'
+                                value={longitude}
+                                onChange={(e) => {
+                                    setLongitude(e.target.value)
+                                }}
+                                required />
+                        </div>
+                        <div className="business-price-range-container">
+                            {submitted && formErrors.priceRange && (
+                                <div className="form-error">{formErrors.priceRange}</div>
+                            )}
+                            <div className="business-form-label">
+                                Price Range
+                            </div>
+                            <label className="price-range-radio">
+                                <input
+                                    type="radio"
+                                    value={1}
+                                    checked={priceRange === 1}
+                                    onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                    required
+                                />
+                                $
+                            </label>
+                            <label className="price-range-radio">
+                                <input
+                                      type="radio"
+                                      value={2}
+                                      checked={priceRange === 2}
+                                      onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                      required
+                                />
+                                $$
+                            </label>
+                            <label className="price-range-radio">
+                                <input
+                                      type="radio"
+                                      value={3}
+                                      checked={priceRange === 3}
+                                      onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                      required
+                                />
+                                $$$
+                            </label>
+                            <label className="price-range-radio">
+                                <input
+                                    type="radio"
+                                    value={4}
+                                    checked={priceRange === 4}
+                                    onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                    required
+                                />
+                                $$$$
+                            </label>
+                        </div>
+                        <div className="business-url-container">
+                            {submitted && formErrors.url && (
+                                <div className="form-error">{formErrors.url}</div>
+                            )}
+                            <div className="business-url-label">
+                                Website Link
+                            </div>
+                            <input
+                                className='business-form-url-input'
+                                type='url'
+                                placeholder='URL'
+                                value={businessURL}
+                                onChange={(e) => {
+                                    setBusinessURL(e.target.value)
+                                }}
+                                required />
+                        </div>
+                        <div className="business-image-container">
+                            {submitted && formErrors.businessImage && (
+                                <div className="form-error">{formErrors.businessImage}</div>
+                            )}
+                            <div className="business-image-label">
+                                Business Image
+                            </div>
+                            <label htmlFor='business-image-upload' className="business-image-button">
+                                <input
+                                    id='business-image-upload'
+                                    type='file'
+                                    name="image"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        setBusinessImage(e.target.files[0])
+                                        setFileName(e.target.files[0].name)
+                                    }}
+                                    />
+                                Choose Your Image
+                            </label>
+                            {fileName && <div className="file-name">{fileName}</div>}
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <label>
-                        Website Link
-                        <input
-                            className='create-business-input'
-                            type='text'
-                            placeholder='URL'
-                            value={businessURL}
-                            onChange={(e) => {
-                                setBusinessURL(e.target.value)
-                            }}
-                            required />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Business Image
-                        <input
-                            className='create-business-input'
-                            type='file'
-                            name="image"
-                            accept="image/*"
-                            onChange={(e) => {
-                                setBusinessImage(e.target.files[0])
-                            }
-                            } />
-                    </label>
-                </div>
-                <button type="submit">
+                <button className='submit-form-button' type="submit">
                     Update Business
                 </button>
             </form>

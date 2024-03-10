@@ -7,3 +7,225 @@ input::-webkit-inner-spin-button {
 .form-error {
   color: red;
 }
+
+.business-form-container {
+  width: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.business-description-input {
+  resize: none;
+  width: 100%;
+  height: 10rem;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.business-description-container {
+  display: flex;
+  width: 100%;
+}
+
+.all-business-form-inputs {
+  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 0 18px #00000026;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.business-form {
+  width: 80%;
+}
+
+.business-form-input-label {
+  width: 97%;
+}
+
+.business-form-name-input {
+  width: 70%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-name-phone-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.business-form-phone-input {
+  width: 30%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-address-container {
+  display: flex;
+  width: 100%;
+}
+
+.business-form-address-input {
+  width: 100%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin: 1rem 0;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-city-state-zip-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.business-form-city-input {
+  width: 33.3333%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-form-state-input {
+  width: 33.3333%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-form-zip-input {
+  width: 33.3333%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-lat-lng-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.business-form-lat-input {
+  width: 50%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-form-lng-input {
+  width: 50%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-price-range-container {
+  display: flex;
+  width: 100%;
+  margin: 1rem 0px;
+  flex-direction: column;
+}
+
+.business-form-label {
+  font-size: 1.1rem;
+}
+
+.price-range-radio {
+  font-size: 1.3rem;
+  display: flex;
+  gap: 5px;
+}
+
+.business-url-container {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.business-form-url-input {
+  width: 85%;
+  height: 2rem;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+.business-url-label {
+  font-size: 1.1rem;
+  width: 15%;
+}
+
+.business-image-label {
+  font-size: 1.1rem;
+}
+
+.business-image-container {
+  display: flex;
+  gap: 10px
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.business-image-button {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.business-image-button:hover {
+  background: rgb(226, 226, 226);
+  cursor: pointer;
+}
+
+.business-image-container {
+  display: flex;
+  align-items: center;
+}
+
+.submit-form-button {
+  background: rgba(224, 7, 7, 0.849);
+  color: white;
+  width: 30%;
+  border: grey;
+  border-radius: 4px;
+  height: 3rem;
+  margin: 1.5rem 0;
+  font-size: 1rem;
+}
+
+.submit-form-button:hover {
+  cursor: pointer;
+  background: rgba(224, 81, 81, 0.7);
+}

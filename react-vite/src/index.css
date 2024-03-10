@@ -13,3 +13,6 @@
     border-radius: 4px;
 }
 
+#modal {
+    z-index: 3;
+}

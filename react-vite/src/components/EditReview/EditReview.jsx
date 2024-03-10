@@ -45,9 +45,9 @@ function EditReview({ businessId, review }) {
             formData.append('rating', rating)
             formData.append('submit', true)
 
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1])
-            }
+            // for (let pair of formData.entries()) {
+            //     console.log(pair[0] + ', ' + pair[1])
+            // }
 
             await dispatch(thunkEditReview(formData, review.id)).then(closeModal).then(() => {
                 dispatch(thunkGetOneBusiness(businessId))

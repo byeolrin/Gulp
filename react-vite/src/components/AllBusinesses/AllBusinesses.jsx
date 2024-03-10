@@ -4,6 +4,7 @@ import { thunkGetAllBusinesses } from "../../redux/business";
 import { NavLink } from "react-router-dom";
 import { FaStar, FaStarHalfAlt, FaDollarSign } from "react-icons/fa";
 import './AllBusiness.css';
+import StarRating from "../StarRating/StarRating";
 
 function AllBusinesses() {
     const dispatch = useDispatch();
@@ -25,20 +26,6 @@ function AllBusinesses() {
             return '(' + match[1] + ') ' + match[2] + '-' + match[3];
         }
         return null;
-    };
-
-    const renderStars = (averageRating) => {
-        const starArray = [];
-        for (let i = 0; i < 5; i++) {
-            if (i < Math.floor(averageRating)) {
-                starArray.push(<FaStar key={i} className="star-icon" />);
-            } else if (i === Math.floor(averageRating) && averageRating % 1 !== 0) {
-                starArray.push(<FaStarHalfAlt key={i} className="star-icon-half" />);
-            } else {
-                starArray.push(<FaStar key={i} className="star-icon-empty" />);
-            }
-        }
-        return starArray;
     };
 
     const renderPriceRange = (priceRange) => {
@@ -64,7 +51,7 @@ function AllBusinesses() {
                         <div className="right-side-of-business-card">
                             <div className="business-card-label">{business.business_name}</div>
                             <div className="business-card-label">{formatPhoneNumber(business.phone)}</div>
-                            <div className="business-card-label">{renderStars(calculateAverageRating(business.reviews))}</div>
+                            <div className="business-card-label">{<StarRating averageRating={(calculateAverageRating(business.reviews))} />}</div>
                             <div className="business-card-label">{renderPriceRange(business.price_range)}</div>
                         </div>
                     </NavLink>
