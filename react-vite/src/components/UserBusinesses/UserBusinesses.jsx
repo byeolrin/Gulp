@@ -15,7 +15,7 @@ function UserBusinesses() {
     // console.log('HELLO BUSINESS INFO', userBusinesses);
 
     if (!user) {
-        return navigate('/')
+        navigate('/')
     }
 
     useEffect(() => {
