@@ -28,7 +28,7 @@ function BusinessForm() {
 
     useEffect(() => {
         const errors = {};
-        if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
+        if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 3 characters'
         if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number that contains 10 digit in xxx-xxx-xxxx format'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';

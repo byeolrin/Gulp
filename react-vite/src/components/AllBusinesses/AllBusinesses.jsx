@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetAllBusinesses } from "../../redux/business";
 import { NavLink } from "react-router-dom";
-import { FaStar, FaStarHalfAlt, FaDollarSign } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
 import './AllBusiness.css';
 import StarRating from "../StarRating/StarRating";
 

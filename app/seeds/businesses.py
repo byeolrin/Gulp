@@ -29,11 +29,11 @@ def seed_businesses():
         latitude = 40.7415,
         longitude = -73.9912,
         price_range = 4,
-        business_url = 'https://www.cotekoreansteakhouse.com/',
+        business_url = 'https://cotekoreansteakhouse.com/',
         business_image = 'https://assets-global.website-files.com/64dc46f3bd5126f2de6e5a04/65739ed106fcaedf0e2fb0eb_MEET-OUR-MEATweb.webp'
     )
     business3 = Business(
-        owner_id = 1,
+        owner_id = 4,
         business_name = 'BCD Tofu House',
         phone = '212-967-1900',
         address = '5 W 32nd St',

@@ -15,12 +15,12 @@ function UserBusinesses() {
     // console.log('HELLO BUSINESS INFO', userBusinesses);
 
     if (!user) {
-        navigate('/')
+        return navigate('/')
     }
 
     useEffect(() => {
         dispatch(thunkUserBusinesses(user.id))
-    }, [dispatch, user.id])
+    }, [dispatch, user?.id])
 
     const handleEdit = (businessId) => {
         navigate(`/business/${businessId}/edit`);
@@ -63,7 +63,7 @@ function UserBusinesses() {
                                 <OpenModalButton
                                     className='user-business-individual-buttons' 
                                     buttonText='DELETE'
-                                    modalComponent={<DeleteBusinessModal businessId={business.id} userId={user.id} />}
+                                    modalComponent={<DeleteBusinessModal businessId={business.id} userId={user?.id} />}
                                 />
                             </div>
                         </div>

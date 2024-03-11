@@ -17,7 +17,7 @@ function BusinessDetails() {
     const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business);
     const user = useSelector((state) => state.session.user);
 
-    console.log('THIS IS THE CURRENT BUSINESS', currentBusiness, user, businessId)
+    // console.log('THIS IS THE CURRENT BUSINESS', currentBusiness, user, businessId)
 
     useEffect(() => {
         dispatch(thunkGetOneBusiness(businessId));
@@ -92,7 +92,7 @@ function BusinessDetails() {
                         <div>
                             {formatPhoneNumber(currentBusiness?.phone)}
                         </div>
-                        <i class="fa-solid fa-phone"></i>
+                        <i className="fa-solid fa-phone"></i>
                     </div>
                     <hr className="business-details-horizontal-line"></hr>
                     <div className="location-info-container">
@@ -101,25 +101,28 @@ function BusinessDetails() {
                     </div>
                 </div>
             </div>
-            {currentBusiness?.reviews.map((review) =>
-                <div className="review-details-container" key={review.id}>
-                    <p>
-                        {review.user.first_name} {review.user.last_name}
-                    </p>
-                    <p>
-                        {<StarRating averageRating={review.rating} />}
-                    </p>
-                    <p>
-                        {review.review}
-                    </p>
-                    {user?.id === review.user_id && (
-                        <OpenModalButton
-                            buttonText='Delete'
-                            modalComponent={<DeleteReviewModal businessId={businessId} reviewId={review.id} />}
-                        />
-                    )}
-                </div>
-            ).reverse()}
+            <div className="business-all-reviews">
+                {currentBusiness?.reviews.map((review) =>
+                    <div className="review-details-container" key={review.id}>
+                        <p>
+                            {review.user.first_name} {review.user.last_name}
+                        </p>
+                        <div>
+                            {<StarRating averageRating={review.rating} />}
+                        </div>
+                        <p>
+                            {review.review}
+                        </p>
+                        {user?.id === review.user_id && (
+                            <OpenModalButton
+                                className='delete-business-review-button'
+                                buttonText='Delete'
+                                modalComponent={<DeleteReviewModal businessId={businessId} reviewId={review.id} />}
+                            />
+                        )}
+                    </div>
+                ).reverse()}
+            </div>
         </div>
     )
 

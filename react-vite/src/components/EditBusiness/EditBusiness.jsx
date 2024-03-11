@@ -12,29 +12,48 @@ function EditBusiness() {
 
     // console.log('THIS IS THE EDIT BUSINESS FORM', business, user)
 
-    const [businessName, setBusinessName] = useState(business?.business_name);
-    const [phoneNumber, setPhoneNumber] = useState(business?.phone.replace(/\D/g, ''));
-    const [address, setAddress] = useState(business?.address);
-    const [city, setCity] = useState(business?.city);
-    const [state, setState] = useState(business?.state);
-    const [zipcode, setZipcode] = useState(business?.zipcode);
-    const [description, setDescription] = useState(business?.description);
-    const [latitude, setLatitude] = useState(business?.latitude.toFixed(4));
-    const [longitude, setLongitude] = useState(business?.longitude.toFixed(4));
-    const [priceRange, setPriceRange] = useState(parseInt(business?.price_range));
-    const [businessURL, setBusinessURL] = useState(business?.business_url);
-    const [businessImage, setBusinessImage] = useState(business?.business_image);
+    const [businessName, setBusinessName] = useState(business?.business_name || '');
+    const [phoneNumber, setPhoneNumber] = useState(business?.phone?.replace(/\D/g, '') || '');
+    const [address, setAddress] = useState(business?.address || '');
+    const [city, setCity] = useState(business?.city || '');
+    const [state, setState] = useState(business?.state || '');
+    const [zipcode, setZipcode] = useState(business?.zipcode || '');
+    const [description, setDescription] = useState(business?.description || '');
+    const [latitude, setLatitude] = useState(business?.latitude?.toFixed(4) || '');
+    const [longitude, setLongitude] = useState(business?.longitude?.toFixed(4) || '');
+    const [priceRange, setPriceRange] = useState(parseInt(business?.price_range) || 1);
+    const [businessURL, setBusinessURL] = useState(business?.business_url || '');
+    const [businessImage, setBusinessImage] = useState(business?.business_image || null);
     const [fileName, setFileName] = useState('');
+    const [initialLoad, setInitialLoad] = useState(false);
     const [formErrors, setFormErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    
 
     useEffect(() => {
-        dispatch(thunkGetOneBusiness(businessId));
-    }, [dispatch, businessId])
+        dispatch(thunkGetOneBusiness(businessId)).then(() => {
+            if (business) {
+                setBusinessName(business?.business_name)
+                setPhoneNumber(business?.phone.replace(/\D/g, ''))
+                setAddress(business?.address)
+                setCity(business?.city)
+                setState(business?.state)
+                setZipcode(business?.zipcode)
+                setDescription(business?.description)
+                setLatitude(business?.latitude.toFixed(4))
+                setLongitude(business?.longitude.toFixed(4))
+                setPriceRange(parseInt(business?.price_range))
+                setBusinessURL(business?.business_url)
+                setBusinessImage(business?.business_image)
+            }
+            setInitialLoad(true)
+        }
+        )
+    }, [dispatch, businessId, initialLoad])
 
     useEffect(() => {
         const errors = {};
-        if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 5 characters'
+        if (!businessName || businessName.length < 3) errors.businessName = 'Business Name is required and needs to be more than 3 characters'
         if (!phoneNumber || String(phoneNumber).length !== 10) errors.phoneNumber = 'Please provide a valid phone number that contains 10 digit'
         if (!address) errors.address = 'Address is required';
         if (!city) errors.city = 'City is required';
@@ -89,14 +108,14 @@ function EditBusiness() {
     if (!user) {
         navigate('/businesses')
     }
-    
+
     // if (user.id != business?.owner_id) {
     //     navigate(`/business/${businessId}`)
     // }
 
     return (
         <div className="business-form-container">
-            <h1>Welcome to Gulp! Let&apos;s get started with your business information</h1>
+            <h1>Update your business information here!</h1>
             <form onSubmit={handleSubmit}
                 encType="multipart/form-data"
                 className="business-form">
@@ -239,21 +258,21 @@ function EditBusiness() {
                             </label>
                             <label className="price-range-radio">
                                 <input
-                                      type="radio"
-                                      value={2}
-                                      checked={priceRange === 2}
-                                      onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                                      required
+                                    type="radio"
+                                    value={2}
+                                    checked={priceRange === 2}
+                                    onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                    required
                                 />
                                 $$
                             </label>
                             <label className="price-range-radio">
                                 <input
-                                      type="radio"
-                                      value={3}
-                                      checked={priceRange === 3}
-                                      onChange={(e) => setPriceRange(parseInt(e.target.value))}
-                                      required
+                                    type="radio"
+                                    value={3}
+                                    checked={priceRange === 3}
+                                    onChange={(e) => setPriceRange(parseInt(e.target.value))}
+                                    required
                                 />
                                 $$$
                             </label>
@@ -302,7 +321,7 @@ function EditBusiness() {
                                         setBusinessImage(e.target.files[0])
                                         setFileName(e.target.files[0].name)
                                     }}
-                                    />
+                                />
                                 Choose Your Image
                             </label>
                             {fileName && <div className="file-name">{fileName}</div>}

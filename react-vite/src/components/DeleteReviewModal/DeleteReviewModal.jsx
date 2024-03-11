@@ -17,10 +17,10 @@ function DeleteReviewModal({ businessId, reviewId }) {
         <div className="delete-review-container">
             <h2>Are you sure you want to delete this review?</h2>
             <div className="delete-review-buttons-container">
-                <button className='delete-review-button' onClick={handleDelete}>
+                <button className='delete-review-button-yes' onClick={handleDelete}>
                     YES
                 </button>
-                <button className='delete-review-button' onClick={closeModal}>
+                <button className='delete-review-button-no' onClick={closeModal}>
                     NO
                 </button>
             </div>

@@ -13,10 +13,14 @@ def seed_users():
     dennis = User(
         first_name = 'Dennis', last_name = 'Ma', username='dennisbtw', email='dennis@aa.io', password='password'
     )
+    chris = User(
+        first_name = 'Chris', last_name = 'Fealy', username='chris', email='chris@aa.io', password='password'
+    )
 
     db.session.add(demo)
     db.session.add(gary)
     db.session.add(dennis)
+    db.session.add(chris)
     db.session.commit()
 
 

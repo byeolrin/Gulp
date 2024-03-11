@@ -1,1 +1,46 @@
-    
+.delete-business-modal-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.delete-business-button-yes {
+    background: rgba(224, 7, 7, 0.849);
+    color: white;
+    width: 25%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.delete-business-button-yes:hover {
+    cursor: pointer;
+    background: rgba(224, 81, 81, 0.7);
+}
+
+.delete-business-button-no {
+    background: rgba(139, 139, 139, 0.849);
+    color: white;
+    width: 25%;
+    border: grey;
+    border-radius: 4px;
+    height: 3rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.delete-business-button-no:hover {
+    cursor: pointer;
+    background: rgba(203, 203, 203, 0.7);
+}
+
+.delete-business-buttons-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 2rem;
+}

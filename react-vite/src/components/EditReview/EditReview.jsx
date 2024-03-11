@@ -19,7 +19,7 @@ function EditReview({ businessId, review }) {
     const user = useSelector((state) => state.session.user);
     const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business)
 
-    // console.log('hello this is the userReview', currentBusiness.business_name)
+    // console.log('hello this is the userReview', review)
 
     useEffect(() => {
         dispatch(thunkUserBusinessReview(businessId, user.id))
@@ -27,7 +27,7 @@ function EditReview({ businessId, review }) {
 
     useEffect(() => {
         const errors = {};
-        if (!userReview || userReview.length < 10) errors.review = 'Review text is required to be 10 characters long'
+        if (!userReview || userReview.length < 10) errors.userReview = 'Review text is required to be 10 characters long'
         if (!rating || rating < 1 || rating > 5) errors.rating = 'Please provide a valid rating'
 
         setFormErrors(errors);
@@ -88,8 +88,8 @@ function EditReview({ businessId, review }) {
                         })}
                     </div>
                     <label>
-                        {submitted && formErrors.review && (
-                            <div className="form-error">{formErrors.review}</div>
+                        {submitted && formErrors.userReview && (
+                            <div className="form-error">{formErrors.userReview}</div>
                         )}
                         <textarea
                             className='review-text'
