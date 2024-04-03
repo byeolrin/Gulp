@@ -25,7 +25,7 @@ class Business(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     owner = db.relationship("User", back_populates='businesses')
-    reviews = db.relationship('Review', back_populates='business')
+    reviews = db.relationship('Review', back_populates='business', cascade='all, delete')
 
     def to_dict(self):
         return {
