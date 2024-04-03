@@ -861,7 +861,7 @@ Returns the details of a review specified by its id.
     }
     ```
 
-### Create a Meal
+### Create a Review
 
 Creates and returns a new review.
 
@@ -925,7 +925,7 @@ Creates and returns a new review.
     }
     ```
 
-### Edit a Meal
+### Edit a Review
 
 Updates and returns an existing review.
 
@@ -1002,7 +1002,7 @@ Updates and returns an existing review.
     }
     ```
 
-### Delete a Meal
+### Delete a Review
 
 Deletes an existing review.
 
