@@ -11,7 +11,7 @@ function AllBusinesses() {
 
     const AllBusinesses = useSelector((state) => state.businesses.allBusinesses.businesses);
 
-    // console.log('THIS IS YOUR OBJECT OF ALL BUSINESSES', AllBusinesses)
+    console.log('THIS IS YOUR OBJECT OF ALL BUSINESSES', AllBusinesses)
 
     const calculateAverageRating = (reviews) => {
         if (reviews.length === 0) return 0;
@@ -51,7 +51,7 @@ function AllBusinesses() {
                         <div className="right-side-of-business-card">
                             <div className="business-card-label">{business.business_name}</div>
                             <div className="business-card-label">{formatPhoneNumber(business.phone)}</div>
-                            <div className="business-card-label">{<StarRating averageRating={(calculateAverageRating(business.reviews))} />}</div>
+                            <div className="business-card-label">{<StarRating averageRating={(calculateAverageRating(business.reviews))} />}{calculateAverageRating(business.reviews).toFixed(1)}<div>{business.reviews.length} {business.reviews.length === 1 ? 'Review' : 'Reviews'}</div></div>
                             <div className="business-card-label">{renderPriceRange(business.price_range)}</div>
                         </div>
                     </NavLink>
