@@ -29,6 +29,9 @@
     z-index: 2;
     top: 380px;
     left: 200px;
+    display: flex;
+    gap: .3rem;
+    align-items: center;
 }
 
 .business-details-info {
@@ -134,4 +137,11 @@ a:hover {
 .delete-business-review-button:hover {
     cursor: pointer;
     background: rgba(224, 81, 81, 0.7);
+}
+
+.business-details-label-rating-text {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
 }

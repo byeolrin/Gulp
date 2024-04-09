@@ -11,7 +11,7 @@ function AllBusinesses() {
 
     const AllBusinesses = useSelector((state) => state.businesses.allBusinesses.businesses);
 
-    console.log('THIS IS YOUR OBJECT OF ALL BUSINESSES', AllBusinesses)
+    // console.log('THIS IS YOUR OBJECT OF ALL BUSINESSES', AllBusinesses)
 
     const calculateAverageRating = (reviews) => {
         if (reviews.length === 0) return 0;

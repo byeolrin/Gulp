@@ -17,7 +17,7 @@ function BusinessDetails() {
     const currentBusiness = useSelector((state) => state.businesses.oneBusiness.business);
     const user = useSelector((state) => state.session.user);
 
-    // console.log('THIS IS THE CURRENT BUSINESS', currentBusiness, user, businessId)
+    console.log('THIS IS THE CURRENT BUSINESS', currentBusiness, user, businessId)
 
     useEffect(() => {
         dispatch(thunkGetOneBusiness(businessId));
@@ -43,11 +43,27 @@ function BusinessDetails() {
         return null;
     };
 
+    const calculateAverageRating = (reviews) => {
+        if (reviews.length === 0) return 0;
+        const totalRating = reviews.reduce((total, review) => total + review.rating, 0);
+        return totalRating / reviews.length;
+    };
+
     return (
         <div className="business-details-container">
             <div className="business-details-content">
                 <h1>{currentBusiness?.business_name}</h1>
-                <div className="business-details-rating">{<StarRating averageRating={averageRating ? averageRating.toFixed(1) : 0} />}</div>
+                <div className="business-details-rating">
+                    {<StarRating averageRating={averageRating ? averageRating.toFixed(1) : 0} />}
+                    <div className="business-details-label-rating-text">
+                        <div>
+                            {calculateAverageRating(currentBusiness.reviews).toFixed(1)}
+                        </div>
+                        <div>
+                            ({currentBusiness.reviews.length} {currentBusiness.reviews.length === 1 ? 'Review' : 'Reviews'})
+                        </div>
+                    </div>
+                </div>
                 <img className='business-details-image' src={currentBusiness?.business_image} />
             </div>
             <div className="business-details-info">
@@ -78,7 +94,10 @@ function BusinessDetails() {
                             )}
                         </div>
                     )}
-                    <p>{currentBusiness?.description}</p>
+                    <div className="business-details-about-me">
+                        <h3>About the business</h3>
+                        <p>{currentBusiness?.description}</p>
+                    </div>
                 </div>
                 <div className="right-side-business-details-info">
                     <div className="url-info-container">
