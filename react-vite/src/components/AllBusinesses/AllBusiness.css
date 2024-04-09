@@ -23,18 +23,35 @@
     padding-right: 20px;
 }
 
+.business-card-info:hover {
+    text-decoration: none;
+}
+
+.business-card-info:link {
+    text-decoration: none;
+}
+
+.business-card-info:visited {
+    text-decoration: none;
+}
+
+.business-card-info:active {
+    text-decoration: none;
+}
+
 .business-card-image {
     width: 200px;
     height: 200px;
+    border-radius: 4px;
 }
 
 .business-card-label {
-    margin: 18px 0px;
+    margin: 15px 0px;
 }
 
 .star-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background: rgb(255, 100, 61);
     color: white;
     margin: 0px 2px;
@@ -42,8 +59,8 @@
 }
 
 .star-icon-half {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     color: white;
     margin: 0px 2px;
     padding: 5px;
@@ -51,8 +68,8 @@
 }
 
 .star-icon-empty {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     color: white;
     margin: 0px 2px;
     padding: 5px;
@@ -63,3 +80,25 @@
    font-size: small;
 }
 
+.business-card-label-name {
+    margin: 15px 0px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.business-card-info:hover .business-card-label-name {
+    text-decoration: underline;
+}
+
+.business-card-label-rating {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+.business-card-label-rating-text {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: 1rem;
+}
